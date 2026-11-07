@@ -253,7 +253,8 @@
     "sectionBlockAboutSkills",
     "sectionBlockProjects",
     "sectionBlockServicesEdu",
-    "sectionBlockCTA"
+    "sectionBlockCTA",
+    "WorkExperience"
   ],
   "blockVisibility": {
     "sectionBlockAboutSkills": true,
