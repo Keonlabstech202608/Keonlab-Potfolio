@@ -1,7 +1,7 @@
 {
   "profile": {
-    "name": "Keon Edgar",
-    "role": "Computer Science Student | Technology & Systems",
+    "name": "Edgar El Keon Maswaka ",
+    "role": "Computer Science Student | Technology & Systems ",
     "bio": "Exploring the intersection of software, networks and intelligent systems. I build practical solutions, test ideas and document what I learn.",
     "quote": "“The quest to a world yet to come.”",
     "location": "Zambia",
@@ -15,7 +15,9 @@
       "Network Engineering",
       "Cybersecurity",
       "Software Development",
-      "IoT & Embedded Systems"
+      "IoT & Embedded Systems",
+      "Welding ",
+      "Tutoring "
     ]
   },
   "stats": {
@@ -49,6 +51,11 @@
       "name": "Systems & IoT",
       "value": 55,
       "color": "#3b5bdb"
+    },
+    {
+      "name": "Poetry ",
+      "value": 80,
+      "color": "#3b5cdb"
     }
   ],
   "projects": [
@@ -57,10 +64,24 @@
       "title": "Farm Connect",
       "desc": "Farmer-to-business marketplace application.",
       "tag": "Web App",
+      "img": "assets/media/project-covers/eggs.jpg",
       "page": {
+        "tagline": "testing , but contedn will be availanle soon ",
+        "role": "Owner ",
+        "year": "2026",
+        "status": "In development ",
+        "team": "solo",
+        "stack": "Mobile, networking,",
         "layout": "story",
         "accent": "#4f46e5",
         "ctaText": "Want something like this built?",
+        "gallery": [
+          "assets/media/project-galleries/screenshot-2026-10-21-012143.png",
+          "assets/media/project-galleries/screenshot-2026-10-20-110852.png"
+        ],
+        "videos": [
+          {}
+        ],
         "sections": [
           {
             "id": "s1",
