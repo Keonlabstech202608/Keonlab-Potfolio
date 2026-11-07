@@ -1783,7 +1783,27 @@
       if (!content || !content.profile || !Array.isArray(content.projects) || !Array.isArray(content.skills)) {
         throw new Error('The portfolio JSON is missing required profile, projects, or skills data.');
       }
-      DEFAULT_DATA = { ...content, isOwner: false, customEdits: {} };
+      // Keep each existing URL/path as the fallback. Optional CMS uploads override it only
+      // when a replacement is selected, so old external URLs and legacy paths remain valid.
+      const profile = { ...content.profile };
+      for (const [base, upload] of [
+        ['logoUrl', 'logoUpload'], ['avatarUrl', 'avatarUpload'],
+        ['heroBgUrl', 'heroBgUpload'], ['availBgUrl', 'availBgUpload'],
+        ['ctaBgUrl', 'ctaBgUpload']
+      ]) {
+        if (typeof profile[upload] === 'string' && profile[upload].trim()) profile[base] = profile[upload];
+      }
+      const projects = content.projects.map(project => {
+        const item = { ...project };
+        if (typeof item.imgUpload === 'string' && item.imgUpload.trim()) item.img = item.imgUpload;
+        const page = { ...(item.page || {}) };
+        const additions = Array.isArray(page.galleryUploads) ? page.galleryUploads : [];
+        const original = Array.isArray(page.gallery) ? page.gallery : [];
+        page.gallery = [...new Set([...original, ...additions].filter(Boolean))];
+        item.page = page;
+        return item;
+      });
+      DEFAULT_DATA = { ...content, profile, projects, isOwner: false, customEdits: {} };
     }
 
     function loadSavedState() {
