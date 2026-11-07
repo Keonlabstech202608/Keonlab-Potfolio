@@ -272,9 +272,9 @@
     "sectionBlockCTA"
   ],
   "blockVisibility": {
-    "sectionBlockAboutSkills": true,
-    "sectionBlockProjects": true,
-    "sectionBlockServicesEdu": true,
-    "sectionBlockCTA": true
+    "sectionBlockAboutSkills": false,
+    "sectionBlockProjects": false,
+    "sectionBlockServicesEdu": false,
+    "sectionBlockCTA": false
   }
 }
