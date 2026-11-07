@@ -105,7 +105,11 @@ content:
               - name: gallery
                 label: Project gallery — upload screenshots or photos
                 type: image
-                list: true
+                options:
+                  multiple:
+                    max: 12
+                  unique: true
+                  extensions: [png, jpg, jpeg, webp, avif, gif]
               - name: videos
                 label: Demonstration videos
                 type: object
