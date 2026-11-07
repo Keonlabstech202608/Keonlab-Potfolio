@@ -23,11 +23,11 @@ content:
           - { name: availability, label: Availability status, type: string }
           - { name: availabilityText, label: Availability label, type: string }
           - { name: availabilityDesc, label: Availability note, type: text }
-          - { name: logoUrl, label: Logo image URL, type: string }
-          - { name: avatarUrl, label: Profile image URL, type: string }
-          - { name: heroBgUrl, label: Hero background image URL, type: string }
-          - { name: availBgUrl, label: Availability background image URL, type: string }
-          - { name: ctaBgUrl, label: Contact section background image URL, type: string }
+          - { name: logoUrl, label: Logo image, type: image }
+          - { name: avatarUrl, label: Profile photo, type: image }
+          - { name: heroBgUrl, label: Hero background image, type: image }
+          - { name: availBgUrl, label: Availability background image, type: image }
+          - { name: ctaBgUrl, label: Contact section background image, type: image }
           - name: techBadges
             label: Technology badges
             type: string
@@ -67,7 +67,7 @@ content:
           - { name: title, label: Project title, type: string }
           - { name: desc, label: Short description, type: text }
           - { name: tag, label: Category, type: string }
-          - { name: img, label: Cover image URL, type: string }
+          - { name: img, label: Project cover image, type: image }
           - name: page
             label: Project details
             type: object
@@ -103,9 +103,12 @@ content:
                   - { name: label, label: Link label, type: string }
                   - { name: url, label: URL (HTTPS), type: string }
               - name: gallery
-                label: Project image URLs
-                type: string
-                list: true
+                label: Project image gallery
+                type: image
+                options:
+                  multiple:
+                    max: 12
+                  unique: true
               - name: videos
                 label: Demonstration videos
                 type: object
