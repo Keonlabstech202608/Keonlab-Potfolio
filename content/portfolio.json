@@ -8,7 +8,7 @@
     "availability": "available",
     "availabilityText": "Available for Work",
     "availabilityDesc": "Open to new projects and collaborations.",
-    "logoUrl": "",
+    "logoUpload": "assets/media/logos/chatgpt-image-sep-4-2026-065203-pm.png",
     "avatarUrl": "assets/media/profile/ke-avatar.png",
     "heroBgUrl": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=1400",
     "availBgUrl": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80&w=800",
@@ -26,21 +26,7 @@
     "delivery": "BSc",
     "satisfaction": "ZM"
   },
-  "theme": {
-    "brandColor": "#2457a6",
-    "cardRadius": 20,
-    "heroGradStart": "#0b1030",
-    "heroGradMiddle": "#0b1030",
-    "heroGradEnd": "#0b1030",
-    "heroGradStrength": 96,
-    "heroGradAngle": 90,
-    "availGradStart": "#142b46",
-    "availGradEnd": "#0c1727",
-    "availGradStrength": 92,
-    "ctaGradStart": "#102b4d",
-    "ctaGradEnd": "#111827",
-    "ctaGradStrength": 94
-  },
+  "aboutMissionText": "I am a Computer Science student exploring how software, networks and connected systems can solve practical problems. My work spans application development, networking, cybersecurity fundamentals, computer systems and emerging technologies. I value understanding how things work, building them deliberately and improving them through testing.",
   "skills": [
     {
       "id": "sk1",
@@ -75,21 +61,9 @@
       "tag": "Web App",
       "img": "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&q=80&w=600",
       "page": {
-        "tagline": "",
-        "role": "",
-        "year": "",
-        "status": "",
-        "team": "",
-        "features": [],
-        "stack": "",
         "layout": "story",
         "accent": "#4f46e5",
         "ctaText": "Want something like this built?",
-        "links": [],
-        "gallery": [],
-        "videos": [],
-        "demos": [],
-        "liveDemoUrl": "",
         "sections": [
           {
             "id": "s1",
@@ -100,19 +74,16 @@
           {
             "id": "s2",
             "title": "The problem",
-            "body": "",
             "show": false
           },
           {
             "id": "s3",
             "title": "How I built it",
-            "body": "",
             "show": false
           },
           {
             "id": "s4",
             "title": "What I learned",
-            "body": "",
             "show": false
           }
         ]
@@ -125,21 +96,9 @@
       "tag": "Web App",
       "img": "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&q=80&w=600",
       "page": {
-        "tagline": "",
-        "role": "",
-        "year": "",
-        "status": "",
-        "team": "",
-        "features": [],
-        "stack": "",
         "layout": "story",
         "accent": "#4f46e5",
         "ctaText": "Want something like this built?",
-        "links": [],
-        "gallery": [],
-        "videos": [],
-        "demos": [],
-        "liveDemoUrl": "",
         "sections": [
           {
             "id": "s1",
@@ -150,19 +109,16 @@
           {
             "id": "s2",
             "title": "The problem",
-            "body": "",
             "show": false
           },
           {
             "id": "s3",
             "title": "How I built it",
-            "body": "",
             "show": false
           },
           {
             "id": "s4",
             "title": "What I learned",
-            "body": "",
             "show": false
           }
         ]
@@ -175,21 +131,9 @@
       "tag": "C++",
       "img": "https://images.unsplash.com/photo-1556742049-0a670fc8a5d7?auto=format&fit=crop&q=80&w=600",
       "page": {
-        "tagline": "",
-        "role": "",
-        "year": "",
-        "status": "",
-        "team": "",
-        "features": [],
-        "stack": "",
         "layout": "story",
         "accent": "#4f46e5",
         "ctaText": "Want something like this built?",
-        "links": [],
-        "gallery": [],
-        "videos": [],
-        "demos": [],
-        "liveDemoUrl": "",
         "sections": [
           {
             "id": "s1",
@@ -200,19 +144,16 @@
           {
             "id": "s2",
             "title": "The problem",
-            "body": "",
             "show": false
           },
           {
             "id": "s3",
             "title": "How I built it",
-            "body": "",
             "show": false
           },
           {
             "id": "s4",
             "title": "What I learned",
-            "body": "",
             "show": false
           }
         ]
@@ -225,21 +166,9 @@
       "tag": "Computer Graphics",
       "img": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=600",
       "page": {
-        "tagline": "",
-        "role": "",
-        "year": "",
-        "status": "",
-        "team": "",
-        "features": [],
-        "stack": "",
         "layout": "story",
         "accent": "#4f46e5",
         "ctaText": "Want something like this built?",
-        "links": [],
-        "gallery": [],
-        "videos": [],
-        "demos": [],
-        "liveDemoUrl": "",
         "sections": [
           {
             "id": "s1",
@@ -250,19 +179,16 @@
           {
             "id": "s2",
             "title": "The problem",
-            "body": "",
             "show": false
           },
           {
             "id": "s3",
             "title": "How I built it",
-            "body": "",
             "show": false
           },
           {
             "id": "s4",
             "title": "What I learned",
-            "body": "",
             "show": false
           }
         ]
@@ -301,19 +227,24 @@
     "years": "2023 – Present",
     "footerText": "Bachelor of Science Degree Program"
   },
-  "aboutMissionText": "I am a Computer Science student exploring how software, networks and connected systems can solve practical problems. My work spans application development, networking, cybersecurity fundamentals, computer systems and emerging technologies. I value understanding how things work, building them deliberately and improving them through testing.",
   "cta": {
     "heading": "Let's Work Together",
     "subtext": "Have a project, need technical support, or want to collaborate? I'm here to help."
   },
-  "contact": {
-    "email": "",
-    "phone": "",
-    "whatsapp": "",
-    "github": "",
-    "linkedin": "",
-    "formEndpoint": "",
-    "siteUrl": ""
+  "theme": {
+    "brandColor": "#2457a6",
+    "cardRadius": 20,
+    "heroGradStart": "#0b1030",
+    "heroGradMiddle": "#0b1030",
+    "heroGradEnd": "#0b1030",
+    "heroGradStrength": 96,
+    "heroGradAngle": 90,
+    "availGradStart": "#142b46",
+    "availGradEnd": "#0c1727",
+    "availGradStrength": 92,
+    "ctaGradStart": "#102b4d",
+    "ctaGradEnd": "#111827",
+    "ctaGradStrength": 94
   },
   "layoutOrder": [
     "sectionBlockAboutSkills",
