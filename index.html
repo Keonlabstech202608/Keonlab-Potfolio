@@ -420,7 +420,6 @@
   <style id="production-hardening">
     /* Public build: the browser-only editor and review tools are not access controls. */
     #modeToggleBtn, #resetBtn, #toggleDrawerBtn, #studioDrawer, .owner-upload-btn, #cvReviewModal { display: none !important; }
-    #contentLoadError[hidden] { display: none !important; }
   </style>
 </head>
 <body id="top" class="h-full font-sans antialiased bg-slate-50 text-slate-800">
@@ -1572,9 +1571,31 @@
       return '';
     };
     function pageOf(p) {
-      if (!p.page) p.page = { tagline: '', role: '', year: '', status: '', team: '', features: [], stack: '', layout: 'story', accent: '#4f46e5', ctaText: 'Want something like this built?', links: [], gallery: [], videos: [], demos: [], liveDemoUrl: '',
-        sections: [ { id: 's1', title: 'Overview', body: p.desc, show: true }, { id: 's2', title: 'The problem', body: '', show: false }, { id: 's3', title: 'How I built it', body: '', show: false }, { id: 's4', title: 'What I learned', body: '', show: false } ] };
-      return p.page;
+      if (!p.page || typeof p.page !== 'object') p.page = {};
+      const g = p.page;
+      g.tagline = g.tagline || ''; g.role = g.role || ''; g.year = g.year || '';
+      g.status = g.status || ''; g.team = g.team || '';
+      g.features = Array.isArray(g.features) ? g.features : [];
+      g.stack = g.stack || ''; g.layout = g.layout === 'split' ? 'split' : 'story';
+      g.accent = g.accent || '#4f46e5';
+      g.ctaText = g.ctaText || 'Want something like this built?';
+      g.links = Array.isArray(g.links) ? g.links : [];
+      g.gallery = Array.isArray(g.gallery) ? g.gallery : [];
+      g.videos = Array.isArray(g.videos) ? g.videos : [];
+      g.demos = Array.isArray(g.demos) ? g.demos : [];
+      g.liveDemoUrl = g.liveDemoUrl || '';
+      if (!Array.isArray(g.sections)) g.sections = [
+        { id: 's1', title: 'Overview', body: p.desc || '', show: true },
+        { id: 's2', title: 'The problem', body: '', show: false },
+        { id: 's3', title: 'How I built it', body: '', show: false },
+        { id: 's4', title: 'What I learned', body: '', show: false }
+      ];
+      // CMS-created sections may omit an ID or visibility value. Default new sections to visible.
+      g.sections = g.sections.filter(x => x && typeof x === 'object').map((x, i) => ({
+        ...x, id: x.id || ('section_' + i), title: x.title || 'Project section',
+        body: x.body || '', show: x.show !== false
+      }));
+      return g;
     }
     function openProjectPage(id) { location.hash = 'project-' + id; }
     function routeHash() {
@@ -1603,7 +1624,8 @@
       const ce = own ? ' contenteditable="true"' : '', e = escapeHTML;
       const stack = g.stack.split(',').map(x => x.trim()).filter(Boolean);
       const meta = [['Role', g.role, 'role'], ['Year', g.year, 'year'], ['Status', g.status, 'status'], ['Team', g.team, 'team']].filter(m => own || m[1]);
-      const secs = g.sections.filter(x => own || (x.show && String(x.body || '').trim()));
+      // A section marked Show in the content editor renders even before its body is filled in.
+      const secs = g.sections.filter(x => own || x.show !== false);
       const missing = pjMissing(g);
       const tools = own ? `
         <div class="pj-tools">
@@ -1725,7 +1747,7 @@
         if (a === 'back') { location.hash = 'sectionBlockProjects'; return; }
         if (a === 'contact' || a === 'demo') { openContactAbout(p, a); return; }
         if (!p) return; const g = pageOf(p);
-        if (a === 'addsec') g.sections.push({ id: 's_' + Date.now(), title: 'New section', body: '', show: true });
+        if (a === 'addsec') g.sections.push({ id: 'section_' + Date.now(), title: 'New section', body: '', show: true });
         else {
           const sid = b.closest('[data-sid]').dataset.sid, k = g.sections.findIndex(x => x.id === sid);
           if (a === 'del') g.sections.splice(k, 1);
