@@ -70,29 +70,49 @@ content:
           - { name: availabilityText, label: Availability label, type: string }
           - { name: availabilityDesc, label: Availability note, type: text }
           - name: logoUrl
-            label: Brand logo
+            label: Current brand logo (keep this image)
+            type: string
+            description: Existing image URL or path. Leave unchanged to keep the current logo.
+          - name: logoUpload
+            label: Replace brand logo (optional)
             type: image
-            description: Upload the logo used in your portfolio header.
+            description: Leave empty to keep the current logo. Upload here only when you want to replace it.
             options: { media: logos }
           - name: avatarUrl
-            label: Profile photo
+            label: Current profile photo (keep this image)
+            type: string
+            description: Existing image URL or path. Leave unchanged to keep the current photo.
+          - name: avatarUpload
+            label: Replace profile photo (optional)
             type: image
-            description: Upload your profile picture.
+            description: Leave empty to keep the current photo. Upload here only when you want to replace it.
             options: { media: profile_photos }
           - name: heroBgUrl
-            label: Hero background
+            label: Current hero background (keep this image)
+            type: string
+            description: Existing image URL or path. Leave unchanged to keep the current background.
+          - name: heroBgUpload
+            label: Replace hero background (optional)
             type: image
-            description: Upload the wide background image for the main hero section.
+            description: Leave empty to keep the current background. Upload here only when you want to replace it.
             options: { media: hero_backgrounds }
           - name: availBgUrl
-            label: Availability background
+            label: Current availability background (keep this image)
+            type: string
+            description: Existing image URL or path. Leave unchanged to keep the current background.
+          - name: availBgUpload
+            label: Replace availability background (optional)
             type: image
-            description: Upload the background image for the availability section.
+            description: Leave empty to keep the current background. Upload here only when you want to replace it.
             options: { media: availability_backgrounds }
           - name: ctaBgUrl
-            label: Contact section background
+            label: Current contact background (keep this image)
+            type: string
+            description: Existing image URL or path. Leave unchanged to keep the current background.
+          - name: ctaBgUpload
+            label: Replace contact background (optional)
             type: image
-            description: Upload the background image for the contact section.
+            description: Leave empty to keep the current background. Upload here only when you want to replace it.
             options: { media: contact_backgrounds }
           - name: techBadges
             label: Technology badges
@@ -134,9 +154,13 @@ content:
           - { name: desc, label: Short description, type: text }
           - { name: tag, label: Category, type: string }
           - name: img
-            label: Project cover image
+            label: Current project cover (keep this image)
+            type: string
+            description: Existing image URL or path. Leave unchanged to keep the current project cover.
+          - name: imgUpload
+            label: Replace project cover (optional)
             type: image
-            description: Upload the thumbnail shown on the project card.
+            description: Leave empty to keep the current cover. Upload here only when you want to replace it.
             options: { media: project_covers }
           - name: page
             label: Project details
@@ -174,9 +198,14 @@ content:
                   - { name: label, label: Link label, type: string }
                   - { name: url, label: URL (HTTPS), type: string }
               - name: gallery
-                label: Project gallery screenshots
+                label: Current gallery image URLs or paths (keep these)
+                type: string
+                list: true
+                description: Existing gallery image URLs or paths. Leave these unchanged to keep the current gallery.
+              - name: galleryUploads
+                label: Add or replace gallery images (optional)
                 type: image
-                description: Add up to 12 screenshots or photos for this project.
+                description: Upload additional screenshots here. Existing gallery images are kept. Clear this field to remove only the uploaded additions.
                 options:
                   media: project_galleries
                   multiple:
