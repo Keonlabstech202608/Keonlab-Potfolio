@@ -1,0 +1,330 @@
+{
+  "profile": {
+    "name": "Keon Edgar",
+    "role": "Computer Science Student | Technology & Systems",
+    "bio": "Exploring the intersection of software, networks and intelligent systems. I build practical solutions, test ideas and document what I learn.",
+    "quote": "“The quest to a world yet to come.”",
+    "location": "Zambia",
+    "availability": "available",
+    "availabilityText": "Available for Work",
+    "availabilityDesc": "Open to new projects and collaborations.",
+    "logoUrl": "",
+    "avatarUrl": "assets/media/profile/ke-avatar.png",
+    "heroBgUrl": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=1400",
+    "availBgUrl": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80&w=800",
+    "ctaBgUrl": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1200",
+    "techBadges": [
+      "Network Engineering",
+      "Cybersecurity",
+      "Software Development",
+      "IoT & Embedded Systems"
+    ]
+  },
+  "stats": {
+    "projects": "4",
+    "rating": "4",
+    "delivery": "BSc",
+    "satisfaction": "ZM"
+  },
+  "theme": {
+    "brandColor": "#2457a6",
+    "cardRadius": 20,
+    "heroGradStart": "#0b1030",
+    "heroGradMiddle": "#0b1030",
+    "heroGradEnd": "#0b1030",
+    "heroGradStrength": 96,
+    "heroGradAngle": 90,
+    "availGradStart": "#142b46",
+    "availGradEnd": "#0c1727",
+    "availGradStrength": 92,
+    "ctaGradStart": "#102b4d",
+    "ctaGradEnd": "#111827",
+    "ctaGradStrength": 94
+  },
+  "skills": [
+    {
+      "id": "sk1",
+      "name": "Software Development",
+      "value": 75,
+      "color": "#3b5bdb"
+    },
+    {
+      "id": "sk2",
+      "name": "Networking",
+      "value": 75,
+      "color": "#3b5bdb"
+    },
+    {
+      "id": "sk3",
+      "name": "Cybersecurity",
+      "value": 60,
+      "color": "#3b5bdb"
+    },
+    {
+      "id": "sk4",
+      "name": "Systems & IoT",
+      "value": 55,
+      "color": "#3b5bdb"
+    }
+  ],
+  "projects": [
+    {
+      "id": "p1",
+      "title": "Farm Connect",
+      "desc": "Farmer-to-business marketplace application.",
+      "tag": "Web App",
+      "img": "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&q=80&w=600",
+      "page": {
+        "tagline": "",
+        "role": "",
+        "year": "",
+        "status": "",
+        "team": "",
+        "features": [],
+        "stack": "",
+        "layout": "story",
+        "accent": "#4f46e5",
+        "ctaText": "Want something like this built?",
+        "links": [],
+        "gallery": [],
+        "videos": [],
+        "demos": [],
+        "liveDemoUrl": "",
+        "sections": [
+          {
+            "id": "s1",
+            "title": "Overview",
+            "body": "Farmer-to-business marketplace application.",
+            "show": true
+          },
+          {
+            "id": "s2",
+            "title": "The problem",
+            "body": "",
+            "show": false
+          },
+          {
+            "id": "s3",
+            "title": "How I built it",
+            "body": "",
+            "show": false
+          },
+          {
+            "id": "s4",
+            "title": "What I learned",
+            "body": "",
+            "show": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "p2",
+      "title": "Skills to Work Zambia",
+      "desc": "Digital job platform connecting skilled talent with employers.",
+      "tag": "Web App",
+      "img": "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&q=80&w=600",
+      "page": {
+        "tagline": "",
+        "role": "",
+        "year": "",
+        "status": "",
+        "team": "",
+        "features": [],
+        "stack": "",
+        "layout": "story",
+        "accent": "#4f46e5",
+        "ctaText": "Want something like this built?",
+        "links": [],
+        "gallery": [],
+        "videos": [],
+        "demos": [],
+        "liveDemoUrl": "",
+        "sections": [
+          {
+            "id": "s1",
+            "title": "Overview",
+            "body": "Digital job platform connecting skilled talent with employers.",
+            "show": true
+          },
+          {
+            "id": "s2",
+            "title": "The problem",
+            "body": "",
+            "show": false
+          },
+          {
+            "id": "s3",
+            "title": "How I built it",
+            "body": "",
+            "show": false
+          },
+          {
+            "id": "s4",
+            "title": "What I learned",
+            "body": "",
+            "show": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "p3",
+      "title": "FastCash Simulation",
+      "desc": "C++ Mobile Money system simulation with security logic.",
+      "tag": "C++",
+      "img": "https://images.unsplash.com/photo-1556742049-0a670fc8a5d7?auto=format&fit=crop&q=80&w=600",
+      "page": {
+        "tagline": "",
+        "role": "",
+        "year": "",
+        "status": "",
+        "team": "",
+        "features": [],
+        "stack": "",
+        "layout": "story",
+        "accent": "#4f46e5",
+        "ctaText": "Want something like this built?",
+        "links": [],
+        "gallery": [],
+        "videos": [],
+        "demos": [],
+        "liveDemoUrl": "",
+        "sections": [
+          {
+            "id": "s1",
+            "title": "Overview",
+            "body": "C++ Mobile Money system simulation with security logic.",
+            "show": true
+          },
+          {
+            "id": "s2",
+            "title": "The problem",
+            "body": "",
+            "show": false
+          },
+          {
+            "id": "s3",
+            "title": "How I built it",
+            "body": "",
+            "show": false
+          },
+          {
+            "id": "s4",
+            "title": "What I learned",
+            "body": "",
+            "show": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "p4",
+      "title": "Graphics Viewer",
+      "desc": "3D graphics rendering engine built using C++ & algorithms.",
+      "tag": "Computer Graphics",
+      "img": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=600",
+      "page": {
+        "tagline": "",
+        "role": "",
+        "year": "",
+        "status": "",
+        "team": "",
+        "features": [],
+        "stack": "",
+        "layout": "story",
+        "accent": "#4f46e5",
+        "ctaText": "Want something like this built?",
+        "links": [],
+        "gallery": [],
+        "videos": [],
+        "demos": [],
+        "liveDemoUrl": "",
+        "sections": [
+          {
+            "id": "s1",
+            "title": "Overview",
+            "body": "3D graphics rendering engine built using C++ & algorithms.",
+            "show": true
+          },
+          {
+            "id": "s2",
+            "title": "The problem",
+            "body": "",
+            "show": false
+          },
+          {
+            "id": "s3",
+            "title": "How I built it",
+            "body": "",
+            "show": false
+          },
+          {
+            "id": "s4",
+            "title": "What I learned",
+            "body": "",
+            "show": false
+          }
+        ]
+      }
+    }
+  ],
+  "services": [
+    {
+      "id": "s1",
+      "title": "Website Development",
+      "desc": "Modern and responsive sites",
+      "icon": "fa-globe"
+    },
+    {
+      "id": "s2",
+      "title": "IT Support & Troubleshooting",
+      "desc": "Fix and optimise your systems",
+      "icon": "fa-headset"
+    },
+    {
+      "id": "s3",
+      "title": "Programming Tutoring",
+      "desc": "C++, Python and more",
+      "icon": "fa-graduation-cap"
+    },
+    {
+      "id": "s4",
+      "title": "Data Management",
+      "desc": "Organise and manage your data",
+      "icon": "fa-database"
+    }
+  ],
+  "education": {
+    "institution": "Northrise University",
+    "degree": "BSc. Computer Science",
+    "years": "2023 – Present",
+    "footerText": "Bachelor of Science Degree Program"
+  },
+  "aboutMissionText": "I am a Computer Science student exploring how software, networks and connected systems can solve practical problems. My work spans application development, networking, cybersecurity fundamentals, computer systems and emerging technologies. I value understanding how things work, building them deliberately and improving them through testing.",
+  "cta": {
+    "heading": "Let's Work Together",
+    "subtext": "Have a project, need technical support, or want to collaborate? I'm here to help."
+  },
+  "contact": {
+    "email": "",
+    "phone": "",
+    "whatsapp": "",
+    "github": "",
+    "linkedin": "",
+    "formEndpoint": "",
+    "siteUrl": ""
+  },
+  "layoutOrder": [
+    "sectionBlockAboutSkills",
+    "sectionBlockProjects",
+    "sectionBlockServicesEdu",
+    "sectionBlockCTA"
+  ],
+  "blockVisibility": {
+    "sectionBlockAboutSkills": true,
+    "sectionBlockProjects": true,
+    "sectionBlockServicesEdu": true,
+    "sectionBlockCTA": true
+  }
+}
