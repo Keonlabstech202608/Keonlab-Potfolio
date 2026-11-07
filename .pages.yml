@@ -206,5 +206,5 @@ content:
         fields:
           - { name: sectionBlockAboutSkills, label: About and skills section, type: boolean }
           - { name: sectionBlockProjects, label: Projects section, type: boolean }
-          - { name: sectionBlockServicesEdu, label: Services and education section, type: boolean }
+          - { name: sectionBlockServicesEdu, label: Services and education section, type: boolean } 
           - { name: sectionBlockCTA, label: Contact section, type: boolean }
