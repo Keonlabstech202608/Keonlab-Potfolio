@@ -1566,28 +1566,47 @@
     const safeImageUrl = value => {
       const raw = String(value || '').trim();
       if (!raw || /[\u0000-\u001f\u007f]/.test(raw)) return '';
-      if (/^https:\/\//i.test(raw)) {
-        try { const url = new URL(raw); return !url.username && !url.password ? url.href : ''; } catch (_) { return ''; }
-      }
-      // Pages CMS media is stored under the site root; accept safe relative paths so project Pages URLs work.
-      if (!raw.startsWith('/') && !raw.includes('\\') && !raw.split('/').includes('..') && /^[A-Za-z0-9._~!@%+=,-]+(?:\/[A-Za-z0-9._~!@%+=,-]+)*$/.test(raw) && !/^[A-Za-z][A-Za-z0-9+.-]*:/.test(raw)) return raw;
       if (/^data:image\/(?:png|jpeg|jpg|webp|gif|avif);base64,[a-z0-9+/]+=*$/i.test(raw)) return raw;
       if (/^data:image\/svg\+xml,/i.test(raw) && !/[<>"()\\\u0000-\u001f]/.test(raw)) return raw;
-      return '';
+      if (/^javascript:/i.test(raw) || raw.startsWith('//')) return raw.startsWith('//') ? 'https:' + raw : '';
+      try {
+        const base = new URL(document.baseURI || location.href);
+        let url;
+        if (/^https?:\/\//i.test(raw)) {
+          url = new URL(raw);
+          if (url.username || url.password) return '';
+          if (url.protocol === 'http:' && location.protocol === 'https:') url.protocol = 'https:';
+        } else if (raw.startsWith('/')) {
+          // GitHub Pages project sites live below /repository/. Keep root-style asset paths inside that base.
+          const path = base.pathname;
+          const siteRoot = path.endsWith('/') ? path : path.slice(0, path.lastIndexOf('/') + 1);
+          const clean = raw.replace(/^\/+/, '');
+          const firstSegment = clean.split('/')[0];
+          const baseSegment = siteRoot.split('/').filter(Boolean).pop();
+          url = (baseSegment && firstSegment === baseSegment)
+            ? new URL(raw.replace(/^\/+/, ''), base.origin + '/')
+            : new URL(clean, base.origin + siteRoot);
+        } else {
+          if (raw.includes('\\') || raw.split('/').includes('..')) return '';
+          url = new URL(raw, base);
+        }
+        return ['http:', 'https:'].includes(url.protocol) ? url.href : '';
+      } catch (_) { return ''; }
     };
     function pageOf(p) {
       if (!p.page || typeof p.page !== 'object') p.page = {};
       const g = p.page;
       g.tagline = g.tagline || ''; g.role = g.role || ''; g.year = g.year || '';
       g.status = g.status || ''; g.team = g.team || '';
+      ['showProjectPage','showCover','showTitle','showCategory','showTagline','showMetadata','showRole','showYear','showStatus','showTeam','showStack','showLinks','showFeatures','showGallery','showVideos','showResources','showLiveDemo','showCTA','showNextProject'].forEach(k => { if (g[k] === undefined) g[k] = true; });
       g.features = Array.isArray(g.features) ? g.features.filter(x => x && typeof x === 'object').map(x => ({ ...x, title: x.title || '', text: x.text || '', show: x.show !== false })) : [];
+      g.links = Array.isArray(g.links) ? g.links.filter(x => x && typeof x === 'object').map(x => ({ ...x, show: x.show !== false })) : [];
+      g.videos = Array.isArray(g.videos) ? g.videos.filter(x => x && typeof x === 'object').map(x => ({ ...x, show: x.show !== false })) : [];
+      g.demos = Array.isArray(g.demos) ? g.demos.filter(x => x && typeof x === 'object').map(x => ({ ...x, show: x.show !== false })) : [];
+      g.gallery = Array.isArray(g.gallery) ? g.gallery.filter(Boolean) : [];
       g.stack = g.stack || ''; g.layout = g.layout === 'split' ? 'split' : 'story';
       g.accent = g.accent || '#4f46e5';
       g.ctaText = g.ctaText || 'Want something like this built?';
-      g.links = Array.isArray(g.links) ? g.links : [];
-      g.gallery = Array.isArray(g.gallery) ? g.gallery : [];
-      g.videos = Array.isArray(g.videos) ? g.videos : [];
-      g.demos = Array.isArray(g.demos) ? g.demos : [];
       g.liveDemoUrl = g.liveDemoUrl || '';
       if (!Array.isArray(g.sections)) g.sections = [
         { id: 's1', title: 'Overview', body: p.desc || '', show: true },
@@ -1627,13 +1646,21 @@
       g.features = g.features || []; g.team = g.team || ''; g.gallery = g.gallery || []; g.links = g.links || []; g.videos = g.videos || []; g.demos = g.demos || []; g.liveDemoUrl = g.liveDemoUrl || '';
       const n = state.projects.length, i = state.projects.indexOf(p), prev = state.projects[(i - 1 + n) % n], next = state.projects[(i + 1) % n];
       const ce = own ? ' contenteditable="true"' : '', e = escapeHTML;
-      const stack = g.stack.split(',').map(x => x.trim()).filter(Boolean);
-      const meta = [['Role', g.role, 'role'], ['Year', g.year, 'year'], ['Status', g.status, 'status'], ['Team', g.team, 'team']].filter(m => own || m[1]);
+      if (!own && g.showProjectPage === false) {
+        host.className = 'pj-story';
+        host.innerHTML = '<div class="pj-top"><button type="button" class="pj-back" data-act="back">&larr; Back to portfolio</button></div><article class="pj-body"><p class="pj-empty">This project details page is currently hidden.</p></article>';
+        host.scrollTop = 0;
+        return;
+      }
+      const stack = g.showStack ? g.stack.split(',').map(x => x.trim()).filter(Boolean) : [];
+      const coverSrc = safeImageUrl(p.img);
+      const meta = g.showMetadata ? [['Role', g.role, 'role', g.showRole], ['Year', g.year, 'year', g.showYear], ['Status', g.status, 'status', g.showStatus], ['Team', g.team, 'team', g.showTeam]].filter(m => (own || m[1]) && m[3] !== false) : [];
       // A section marked Show in the content editor renders even before its body is filled in.
       const secs = g.sections.filter(x => own || x.show !== false);
       const missing = pjMissing(g);
       const tools = own ? `
         <div class="pj-tools">
+          <p class="pj-check">Display controls are available in Pages CMS under Project details. Turn each item on or off without deleting its content.</p>
           <label>Layout<select data-pt="layout"><option value="story"${g.layout === 'story' ? ' selected' : ''}>Story</option><option value="split"${g.layout === 'split' ? ' selected' : ''}>Split</option></select></label>
           <label>Accent<input type="color" data-pt="accent" value="${e(g.accent)}"></label>
           <label class="grow">Tech stack<input type="text" data-pt="stack" value="${e(g.stack)}" placeholder="C++, MySQL, Tailwind"></label>
@@ -1653,20 +1680,20 @@
           <p${ce} data-sf="body" data-ph="${e(PJ_PH[x.id] || 'Write this section...')}">${e(x.body)}</p>
           ${own ? `<div class="pj-sc"><button type="button" data-act="up">Up</button><button type="button" data-act="down">Down</button><button type="button" data-act="vis">${x.show ? 'Hide' : 'Show'}</button><button type="button" data-act="del">Delete</button></div>` : ''}
         </section>`;
-      const featHTML = (own || g.features.length) ? `
+      const featHTML = g.showFeatures && (own || g.features.length) ? `
         <section class="pj-sec" id="pj-feat" data-spy data-label="What it does">
           <h2>What it does</h2>
           ${g.features.some(f => f.show !== false) ? `<ul class="pj-feats">${g.features.filter(f => f.show !== false).map(f => `<li class="pj-feat"><i class="fa-solid fa-check" aria-hidden="true"></i><div><b>${e(f.title)}</b>${f.text ? `<span>${e(f.text)}</span>` : ''}</div></li>`).join('')}</ul>` : '<p class="pj-empty">Add key features in the bar above, one per line as Title | description.</p>'}
         </section>` : '';
-      const shotsHTML = g.gallery.length ? `
+      const shotsHTML = g.showGallery && g.gallery.length ? `
         <section class="pj-sec" id="pj-shots" data-spy data-label="Project images">
           <h2>Project images</h2>
           <div class="pj-gal">${g.gallery.map((src, k) => `<figure><button type="button" class="pj-zoom" data-lb="${k}" aria-label="View project image ${k + 1} of ${g.gallery.length} full size"><img src="${e(safeImageUrl(src))}" alt="${e(p.title)} project image ${k + 1}" loading="lazy"></button>${own ? `<button type="button" data-delgal="${k}" aria-label="Remove image">&times;</button>` : ''}</figure>`).join('')}</div>
         </section>` : (own ? `<section class="pj-sec" id="pj-shots" data-spy data-label="Project images"><h2>Project images</h2><p class="pj-empty">Use “Add project images” above to upload screenshots, interface captures or project photos.</p></section>` : '');
       const videoUrl = u => { const raw = String(u || '').trim(); const yt = raw.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/i); if (yt) return 'https://www.youtube-nocookie.com/embed/' + yt[1]; const vm = raw.match(/vimeo\.com\/(?:video\/)?(\d+)/i); if (vm) return 'https://player.vimeo.com/video/' + vm[1]; return /^(https?:\/\/).+\.(mp4|webm|ogg)(?:[?#].*)?$/i.test(raw) ? safeUrl(raw) : ''; };
-      const videosHTML = g.videos.length ? `<section class="pj-sec" id="pj-videos" data-spy data-label="Video demonstrations"><h2>Video demonstrations</h2><div class="pj-video-grid">${g.videos.map((v,k) => { const embed = videoUrl(v.url); return `<article class="pj-video-card"><div class="pj-video-frame">${embed ? ( /\.(mp4|webm|ogg)(?:[?#].*)?$/i.test(v.url) ? `<video controls preload="metadata" src="${e(embed)}"></video>` : `<iframe src="${e(embed)}" title="${e(v.title || p.title + ' demonstration')}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`) : `<a href="${e(safeUrl(v.url))}" target="_blank" rel="noopener noreferrer">Watch demonstration ↗</a>`}</div><h3>${e(v.title || 'Project demonstration')}</h3>${own ? `<button type="button" class="pj-media-remove" data-delvideo="${k}">Remove video</button>` : ''}</article>`; }).join('')}</div></section>` : (own ? `<section class="pj-sec" id="pj-videos" data-spy data-label="Video demonstrations"><h2>Video demonstrations</h2><p class="pj-empty">Add YouTube, Vimeo or hosted MP4/WebM URLs in the editor above.</p></section>` : '');
-      const demosHTML = g.demos.length ? `<section class="pj-sec" id="pj-demos" data-spy data-label="Demonstrations and resources"><h2>Demonstrations and resources</h2><div class="pj-resource-list">${g.demos.map(d => `<a href="${e(safeUrl(d.url))}" target="_blank" rel="noopener noreferrer">${e(d.label)} <span>↗</span></a>`).join('')}</div></section>` : (own ? `<section class="pj-sec" id="pj-demos" data-spy data-label="Demonstrations and resources"><h2>Demonstrations and resources</h2><p class="pj-empty">Add presentation links, walkthrough documents, repositories or other demonstration resources in the editor above.</p></section>` : '');
-      const liveDemoHTML = g.liveDemoUrl ? `<a class="pj-live-demo" href="${e(safeUrl(g.liveDemoUrl))}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square"></i> Open live demo</a>` : (own ? `<span class="pj-live-demo pj-live-demo-empty">Live demo URL not set</span>` : '');
+      const videosHTML = g.showVideos && g.videos.some(v => v.show !== false) ? `<section class="pj-sec" id="pj-videos" data-spy data-label="Video demonstrations"><h2>Video demonstrations</h2><div class="pj-video-grid">${g.videos.map((v,k) => ({v,k})).filter(x => x.v.show !== false).map(({v,k}) => { const embed = videoUrl(v.url); return `<article class="pj-video-card"><div class="pj-video-frame">${embed ? ( /\.(mp4|webm|ogg)(?:[?#].*)?$/i.test(v.url) ? `<video controls preload="metadata" src="${e(embed)}"></video>` : `<iframe src="${e(embed)}" title="${e(v.title || p.title + ' demonstration')}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`) : `<a href="${e(safeUrl(v.url))}" target="_blank" rel="noopener noreferrer">Watch demonstration ↗</a>`}</div><h3>${e(v.title || 'Project demonstration')}</h3>${own ? `<button type="button" class="pj-media-remove" data-delvideo="${k}">Remove video</button>` : ''}</article>`; }).join('')}</div></section>` : (own ? `<section class="pj-sec" id="pj-videos" data-spy data-label="Video demonstrations"><h2>Video demonstrations</h2><p class="pj-empty">Add YouTube, Vimeo or hosted MP4/WebM URLs in the editor above.</p></section>` : '');
+      const demosHTML = g.showResources && g.demos.some(d => d.show !== false) ? `<section class="pj-sec" id="pj-demos" data-spy data-label="Demonstrations and resources"><h2>Demonstrations and resources</h2><div class="pj-resource-list">${g.demos.filter(d => d.show !== false).map(d => `<a href="${e(safeUrl(d.url))}" target="_blank" rel="noopener noreferrer">${e(d.label)} <span>↗</span></a>`).join('')}</div></section>` : (own ? `<section class="pj-sec" id="pj-demos" data-spy data-label="Demonstrations and resources"><h2>Demonstrations and resources</h2><p class="pj-empty">Add presentation links, walkthrough documents, repositories or other demonstration resources in the editor above.</p></section>` : '');
+      const liveDemoHTML = g.showLiveDemo && g.liveDemoUrl ? `<a class="pj-live-demo" href="${e(safeUrl(g.liveDemoUrl))}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square"></i> Open live demo</a>` : (own ? `<span class="pj-live-demo pj-live-demo-empty">Live demo URL not set</span>` : '');
       const tocItems = secs.slice(0, 1).map(x => ['pj-s-' + x.id, x.title])
         .concat(featHTML ? [['pj-feat', 'What it does']] : [])
         .concat(secs.slice(1).map(x => ['pj-s-' + x.id, x.title]))
@@ -1685,14 +1712,14 @@
         </div>${tools}${toc}
         <article>
           <div class="pj-hero">
-            <img class="pj-cover" src="${e(safeImageUrl(p.img))}" alt="${e(p.title)} cover">
+            ${g.showCover && coverSrc ? `<img class="pj-cover" src="${e(coverSrc)}" alt="${e(p.title)} cover" loading="eager" onerror="this.style.display='none'">` : ''}
             <div class="pj-shade"></div>
             <div class="pj-head">
-              <span class="pj-tag"${ce} data-pf="tag" data-ph="Tag">${e(p.tag)}</span>
-              <h1${ce} data-pf="title" data-ph="Project title">${e(p.title)}</h1>
-              <p class="pj-tagline"${ce} data-pf="tagline" data-ph="One-line summary">${e(g.tagline)}</p>
+              ${g.showCategory ? `<span class="pj-tag"${ce} data-pf="tag" data-ph="Tag">${e(p.tag)}</span>` : ''}
+              ${g.showTitle ? `<h1${ce} data-pf="title" data-ph="Project title">${e(p.title)}</h1>` : ''}
+              ${g.showTagline && g.tagline ? `<p class="pj-tagline"${ce} data-pf="tagline" data-ph="One-line summary">${e(g.tagline)}</p>` : ''}
               ${stack.length ? `<div class="pj-stack">${stack.map(x => `<span>${e(x)}</span>`).join('')}</div>` : ''}
-              ${g.links.length ? `<div class="pj-links">${g.links.map(l => `<a href="${e(safeUrl(l.url))}" target="_blank" rel="noopener noreferrer">${e(l.label)} <span>&nearr;</span></a>`).join('')}</div>` : (own ? '' : `<div class="pj-links"><button type="button" data-act="demo">Request a demo <span>&nearr;</span></button></div>`)}
+              ${g.showLinks && g.links.some(l => l.show !== false) ? `<div class="pj-links">${g.links.filter(l => l.show !== false).map(l => `<a href="${e(safeUrl(l.url))}" target="_blank" rel="noopener noreferrer">${e(l.label)} <span>&nearr;</span></a>`).join('')}</div>` : (g.showLinks && !own ? `<div class="pj-links"><button type="button" data-act="demo">Request a demo <span>&nearr;</span></button></div>` : '')}
               ${liveDemoHTML}
             </div>
           </div>
@@ -1704,8 +1731,8 @@
             ${shotsHTML}
             ${videosHTML}
             ${demosHTML}
-            <div class="pj-cta"><p${ce} data-pf="ctaText" data-ph="Call to action">${e(g.ctaText)}</p><button type="button" data-act="contact">Start a conversation</button></div>
-            ${n > 1 ? `<button type="button" class="pj-next" data-go="${e(next.id)}"><img src="${e(safeImageUrl(next.img))}" alt=""><span><small>Next project</small><b>${e(next.title)}</b><em>${e(nextTag)}</em></span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>` : ''}
+            ${g.showCTA ? `<div class="pj-cta"><p${ce} data-pf="ctaText" data-ph="Call to action">${e(g.ctaText)}</p><button type="button" data-act="contact">Start a conversation</button></div>` : ''}
+            ${g.showNextProject && n > 1 ? `<button type="button" class="pj-next" data-go="${e(next.id)}"><img src="${e(safeImageUrl(next.img))}" alt=""><span><small>Next project</small><b>${e(next.title)}</b><em>${e(nextTag)}</em></span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>` : ''}
           </div>
         </article>`;
       host.scrollTop = st;
