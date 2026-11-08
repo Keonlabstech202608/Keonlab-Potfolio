@@ -21,6 +21,16 @@
       "IoT & Embedded Systems"
     ]
   },
+  "showCertifications": true,
+  "certifications": [
+    {
+      "title": "Safegurding essentials ",
+      "issuer": "Kaya ",
+      "issueDate": "21st June, 2024",
+      "thumbnailUpload": "assets/media/certificates/screenshot-2026-04-05-105111.png",
+      "show": true
+    }
+  ],
   "stats": {
     "projects": "4",
     "rating": "4",
