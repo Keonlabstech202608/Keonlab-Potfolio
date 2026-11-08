@@ -175,6 +175,7 @@
     #sectionBlockAboutSkills, #sectionBlockServicesEdu { column-gap:3rem; }
     #statsSection { background:rgba(255,255,255,.74); backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,.8); border-radius:1.25rem; box-shadow:0 18px 40px -18px rgba(30,41,99,.35); }
     #projectsGrid > button { background:none; border:0; box-shadow:none; }
+    #projectsGrid .image-unavailable::after { content:'Project image'; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#4f46e5; font-size:.75rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; background:linear-gradient(135deg,#e0e7ff,#f8fafc,#dbeafe); }
     #projectsGrid > button > div:first-child { border-radius:.9rem; border:0; }
     #projectsGrid .p-4 { padding:.9rem 0 0; }
     #projectsGrid .rounded-md { background:none; border:0; padding:0; color:#4f46e5; }
@@ -189,6 +190,24 @@
     #tileAvailability .text-emerald-400 { color:#059669; }
     #tileAvailability .bg-emerald-400 { background:#059669; }
     #ctaHeading { font-size:clamp(2rem,4vw,3rem); line-height:1; }
+
+
+    /* ===== Certifications ===== */
+    #certificationsBlock { margin-top:2.5rem; padding-top:1.75rem; border-top:1px solid rgba(15,23,60,.14); }
+    .cert-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr)); gap:1.15rem; margin-top:1.2rem; }
+    .cert-card { display:flex; flex-direction:column; overflow:hidden; border:1px solid #e2e8f0; border-radius:1rem; background:rgba(255,255,255,.88); box-shadow:0 12px 30px -24px rgba(15,23,42,.4); transition:transform .2s,border-color .2s,box-shadow .2s; }
+    .cert-card:hover { transform:translateY(-3px); border-color:#a5b4fc; box-shadow:0 18px 34px -24px rgba(79,70,229,.45); }
+    .cert-thumb { position:relative; display:block; width:100%; aspect-ratio:16/10; overflow:hidden; background:linear-gradient(135deg,#e0e7ff,#f1f5f9 55%,#dbeafe); }
+    .cert-thumb img { width:100%; height:100%; object-fit:cover; display:block; }
+    .cert-thumb:has(img) .cert-thumb-fallback { display:none; }
+    .cert-thumb-fallback { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:.45rem; color:#4338ca; font-weight:800; letter-spacing:.08em; text-transform:uppercase; font-size:.68rem; }
+    .cert-thumb-fallback i { font-size:2.2rem; }
+    .cert-info { padding:1rem 1.05rem 1.1rem; }
+    .cert-info h4 { color:#0f172a; font-size:.94rem; line-height:1.35; font-weight:800; }
+    .cert-info p { color:#64748b; font-size:.76rem; margin-top:.3rem; line-height:1.5; }
+    .cert-meta { display:flex; flex-wrap:wrap; gap:.4rem .75rem; margin-top:.7rem; color:#64748b; font-size:.68rem; }
+    .cert-link { display:inline-flex; align-items:center; gap:.4rem; margin-top:.85rem; color:#4f46e5; font-size:.75rem; font-weight:800; }
+    .cert-empty { margin-top:1rem; padding:1.25rem; border:1px dashed #cbd5e1; border-radius:1rem; color:#64748b; font-size:.8rem; }
 
     /* ===== Terminal: floating launcher + panel ===== */
     #termLauncher { position:fixed; right:1.5rem; bottom:1.5rem; z-index:40; display:flex; align-items:center; gap:.6rem; padding:.75rem 1.1rem; border-radius:999px; background:#0a0f2c; color:#fff; font:600 .8125rem Inter,sans-serif; border:1px solid rgba(129,140,248,.5); box-shadow:0 12px 30px -10px rgba(79,70,229,.7),0 0 24px rgba(99,102,241,.35); }
@@ -272,6 +291,7 @@
     .pj-hero { position:relative; }
     .pj-story .pj-hero { height:min(27rem,64vh); overflow:hidden; color:#fff; }
     .pj-story .pj-cover { position:absolute; left:0; top:-10%; width:100%; height:120%; object-fit:cover; }
+    .pj-hero.cover-unavailable::after { content:'Project cover image unavailable — check the image path in Pages CMS'; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; padding:2rem; text-align:center; color:#c7d2fe; font-size:.8rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; background:linear-gradient(135deg,#111827,#312e81); }
     .pj-story .pj-shade { position:absolute; inset:0; background:linear-gradient(180deg,rgba(8,12,36,.25),rgba(8,12,36,.9)); }
     .pj-story .pj-head { position:absolute; left:0; right:0; bottom:0; max-width:60rem; margin:0 auto; padding:0 1.5rem 2rem; }
     .pj-head > * { animation:pjUp .55s both; }
@@ -415,11 +435,6 @@
     #sectionBlockCTA #ctaHeading {
       color: #ffffff !important;
     }
-  </style>
-
-  <style id="content-load-error-visibility-fix">
-    /* Tailwind .grid must not override the native hidden attribute. */
-    #contentLoadError[hidden] { display: none !important; }
   </style>
 
   <style id="production-hardening">
@@ -763,6 +778,17 @@
             <div id="projectsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
               <!-- Rendered dynamically -->
             </div>
+            <section id="certificationsBlock" aria-labelledby="certificationsHeading" hidden>
+              <div class="flex items-end justify-between gap-4 flex-wrap">
+                <div>
+                  <p class="text-[10px] font-extrabold uppercase tracking-[.18em] text-indigo-600">Learning &amp; credentials</p>
+                  <h3 id="certificationsHeading" class="font-extrabold text-slate-900 text-lg sm:text-xl mt-1">Certifications</h3>
+                  <p class="text-xs text-slate-500 mt-1">Verified learning, professional training and achievements.</p>
+                </div>
+                <span id="certificationCount" class="text-xs font-bold text-slate-500"></span>
+              </div>
+              <div id="certificationsGrid" class="cert-grid"></div>
+            </section>
           </section>
 
           <!-- SECTION BLOCK C: SERVICES & EDUCATION -->
@@ -1550,6 +1576,14 @@
 
     // PROJECT PAGES: each project opens as its own page, editable on the page itself
     let openPid = null;
+    // CMS image values may be strings or media objects depending on the editor version.
+    const imageString = value => {
+      if (typeof value === 'string') return value.trim().replace(/\\/g, '/').replace(/^\.\//, '');
+      if (value && typeof value === 'object') return String(value.url || value.src || value.path || value.value || '').trim();
+      return '';
+    };
+    const projectImage = project => imageString(project && (project.imgUpload || project.img || project.image || project.coverImage || project.thumbnail));
+    const certificateImage = cert => imageString(cert && (cert.thumbnailUpload || cert.thumbnail || cert.image || cert.certificateImage));
     const cssImageUrl = value => { const url = safeImageUrl(value); return url ? `url("${url.replace(/["\\]/g, '')}")` : ''; };
     const safeUrl = value => {
       const raw = String(value || '').trim();
@@ -1566,47 +1600,28 @@
     const safeImageUrl = value => {
       const raw = String(value || '').trim();
       if (!raw || /[\u0000-\u001f\u007f]/.test(raw)) return '';
+      if (/^https:\/\//i.test(raw)) {
+        try { const url = new URL(raw); return !url.username && !url.password ? url.href : ''; } catch (_) { return ''; }
+      }
+      // Pages CMS media is stored under the site root; accept safe relative paths so project Pages URLs work.
+      if (!raw.startsWith('/') && !raw.includes('\\') && !raw.split('/').includes('..') && /^[A-Za-z0-9._~!@%+=,-]+(?:\/[A-Za-z0-9._~!@%+=,-]+)*$/.test(raw) && !/^[A-Za-z][A-Za-z0-9+.-]*:/.test(raw)) return raw;
       if (/^data:image\/(?:png|jpeg|jpg|webp|gif|avif);base64,[a-z0-9+/]+=*$/i.test(raw)) return raw;
       if (/^data:image\/svg\+xml,/i.test(raw) && !/[<>"()\\\u0000-\u001f]/.test(raw)) return raw;
-      if (/^javascript:/i.test(raw) || raw.startsWith('//')) return raw.startsWith('//') ? 'https:' + raw : '';
-      try {
-        const base = new URL(document.baseURI || location.href);
-        let url;
-        if (/^https?:\/\//i.test(raw)) {
-          url = new URL(raw);
-          if (url.username || url.password) return '';
-          if (url.protocol === 'http:' && location.protocol === 'https:') url.protocol = 'https:';
-        } else if (raw.startsWith('/')) {
-          // GitHub Pages project sites live below /repository/. Keep root-style asset paths inside that base.
-          const path = base.pathname;
-          const siteRoot = path.endsWith('/') ? path : path.slice(0, path.lastIndexOf('/') + 1);
-          const clean = raw.replace(/^\/+/, '');
-          const firstSegment = clean.split('/')[0];
-          const baseSegment = siteRoot.split('/').filter(Boolean).pop();
-          url = (baseSegment && firstSegment === baseSegment)
-            ? new URL(raw.replace(/^\/+/, ''), base.origin + '/')
-            : new URL(clean, base.origin + siteRoot);
-        } else {
-          if (raw.includes('\\') || raw.split('/').includes('..')) return '';
-          url = new URL(raw, base);
-        }
-        return ['http:', 'https:'].includes(url.protocol) ? url.href : '';
-      } catch (_) { return ''; }
+      return '';
     };
     function pageOf(p) {
       if (!p.page || typeof p.page !== 'object') p.page = {};
       const g = p.page;
       g.tagline = g.tagline || ''; g.role = g.role || ''; g.year = g.year || '';
       g.status = g.status || ''; g.team = g.team || '';
-      ['showProjectPage','showCover','showTitle','showCategory','showTagline','showMetadata','showRole','showYear','showStatus','showTeam','showStack','showLinks','showFeatures','showGallery','showVideos','showResources','showLiveDemo','showCTA','showNextProject'].forEach(k => { if (g[k] === undefined) g[k] = true; });
-      g.features = Array.isArray(g.features) ? g.features.filter(x => x && typeof x === 'object').map(x => ({ ...x, title: x.title || '', text: x.text || '', show: x.show !== false })) : [];
-      g.links = Array.isArray(g.links) ? g.links.filter(x => x && typeof x === 'object').map(x => ({ ...x, show: x.show !== false })) : [];
-      g.videos = Array.isArray(g.videos) ? g.videos.filter(x => x && typeof x === 'object').map(x => ({ ...x, show: x.show !== false })) : [];
-      g.demos = Array.isArray(g.demos) ? g.demos.filter(x => x && typeof x === 'object').map(x => ({ ...x, show: x.show !== false })) : [];
-      g.gallery = Array.isArray(g.gallery) ? g.gallery.filter(Boolean) : [];
+      g.features = Array.isArray(g.features) ? g.features : [];
       g.stack = g.stack || ''; g.layout = g.layout === 'split' ? 'split' : 'story';
       g.accent = g.accent || '#4f46e5';
       g.ctaText = g.ctaText || 'Want something like this built?';
+      g.links = Array.isArray(g.links) ? g.links : [];
+      g.gallery = Array.isArray(g.gallery) ? g.gallery : [];
+      g.videos = Array.isArray(g.videos) ? g.videos : [];
+      g.demos = Array.isArray(g.demos) ? g.demos : [];
       g.liveDemoUrl = g.liveDemoUrl || '';
       if (!Array.isArray(g.sections)) g.sections = [
         { id: 's1', title: 'Overview', body: p.desc || '', show: true },
@@ -1637,7 +1652,7 @@
       if (!String(g.stack || '').trim()) m.push('the tech stack');
       if (!g.links.length) m.push('a demo or source link');
       if ((g.gallery || []).length < 3) m.push('3 screenshots');
-      if (!(g.features || []).some(f => f.show !== false)) m.push('visible key features');
+      if (!(g.features || []).length) m.push('key features');
       if (!g.sections.some(x => x.id !== 's1' && x.show && String(x.body || '').trim())) m.push('the problem or how you built it');
       return m;
     }
@@ -1646,21 +1661,13 @@
       g.features = g.features || []; g.team = g.team || ''; g.gallery = g.gallery || []; g.links = g.links || []; g.videos = g.videos || []; g.demos = g.demos || []; g.liveDemoUrl = g.liveDemoUrl || '';
       const n = state.projects.length, i = state.projects.indexOf(p), prev = state.projects[(i - 1 + n) % n], next = state.projects[(i + 1) % n];
       const ce = own ? ' contenteditable="true"' : '', e = escapeHTML;
-      if (!own && g.showProjectPage === false) {
-        host.className = 'pj-story';
-        host.innerHTML = '<div class="pj-top"><button type="button" class="pj-back" data-act="back">&larr; Back to portfolio</button></div><article class="pj-body"><p class="pj-empty">This project details page is currently hidden.</p></article>';
-        host.scrollTop = 0;
-        return;
-      }
-      const stack = g.showStack ? g.stack.split(',').map(x => x.trim()).filter(Boolean) : [];
-      const coverSrc = safeImageUrl(p.img);
-      const meta = g.showMetadata ? [['Role', g.role, 'role', g.showRole], ['Year', g.year, 'year', g.showYear], ['Status', g.status, 'status', g.showStatus], ['Team', g.team, 'team', g.showTeam]].filter(m => (own || m[1]) && m[3] !== false) : [];
+      const stack = g.stack.split(',').map(x => x.trim()).filter(Boolean);
+      const meta = [['Role', g.role, 'role'], ['Year', g.year, 'year'], ['Status', g.status, 'status'], ['Team', g.team, 'team']].filter(m => own || m[1]);
       // A section marked Show in the content editor renders even before its body is filled in.
       const secs = g.sections.filter(x => own || x.show !== false);
       const missing = pjMissing(g);
       const tools = own ? `
         <div class="pj-tools">
-          <p class="pj-check">Display controls are available in Pages CMS under Project details. Turn each item on or off without deleting its content.</p>
           <label>Layout<select data-pt="layout"><option value="story"${g.layout === 'story' ? ' selected' : ''}>Story</option><option value="split"${g.layout === 'split' ? ' selected' : ''}>Split</option></select></label>
           <label>Accent<input type="color" data-pt="accent" value="${e(g.accent)}"></label>
           <label class="grow">Tech stack<input type="text" data-pt="stack" value="${e(g.stack)}" placeholder="C++, MySQL, Tailwind"></label>
@@ -1680,20 +1687,20 @@
           <p${ce} data-sf="body" data-ph="${e(PJ_PH[x.id] || 'Write this section...')}">${e(x.body)}</p>
           ${own ? `<div class="pj-sc"><button type="button" data-act="up">Up</button><button type="button" data-act="down">Down</button><button type="button" data-act="vis">${x.show ? 'Hide' : 'Show'}</button><button type="button" data-act="del">Delete</button></div>` : ''}
         </section>`;
-      const featHTML = g.showFeatures && (own || g.features.length) ? `
+      const featHTML = (own || g.features.length) ? `
         <section class="pj-sec" id="pj-feat" data-spy data-label="What it does">
           <h2>What it does</h2>
-          ${g.features.some(f => f.show !== false) ? `<ul class="pj-feats">${g.features.filter(f => f.show !== false).map(f => `<li class="pj-feat"><i class="fa-solid fa-check" aria-hidden="true"></i><div><b>${e(f.title)}</b>${f.text ? `<span>${e(f.text)}</span>` : ''}</div></li>`).join('')}</ul>` : '<p class="pj-empty">Add key features in the bar above, one per line as Title | description.</p>'}
+          ${g.features.length ? `<ul class="pj-feats">${g.features.map(f => `<li class="pj-feat"><i class="fa-solid fa-check" aria-hidden="true"></i><div><b>${e(f.title)}</b>${f.text ? `<span>${e(f.text)}</span>` : ''}</div></li>`).join('')}</ul>` : '<p class="pj-empty">Add key features in the bar above, one per line as Title | description.</p>'}
         </section>` : '';
-      const shotsHTML = g.showGallery && g.gallery.length ? `
+      const shotsHTML = g.gallery.length ? `
         <section class="pj-sec" id="pj-shots" data-spy data-label="Project images">
           <h2>Project images</h2>
           <div class="pj-gal">${g.gallery.map((src, k) => `<figure><button type="button" class="pj-zoom" data-lb="${k}" aria-label="View project image ${k + 1} of ${g.gallery.length} full size"><img src="${e(safeImageUrl(src))}" alt="${e(p.title)} project image ${k + 1}" loading="lazy"></button>${own ? `<button type="button" data-delgal="${k}" aria-label="Remove image">&times;</button>` : ''}</figure>`).join('')}</div>
         </section>` : (own ? `<section class="pj-sec" id="pj-shots" data-spy data-label="Project images"><h2>Project images</h2><p class="pj-empty">Use “Add project images” above to upload screenshots, interface captures or project photos.</p></section>` : '');
       const videoUrl = u => { const raw = String(u || '').trim(); const yt = raw.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/i); if (yt) return 'https://www.youtube-nocookie.com/embed/' + yt[1]; const vm = raw.match(/vimeo\.com\/(?:video\/)?(\d+)/i); if (vm) return 'https://player.vimeo.com/video/' + vm[1]; return /^(https?:\/\/).+\.(mp4|webm|ogg)(?:[?#].*)?$/i.test(raw) ? safeUrl(raw) : ''; };
-      const videosHTML = g.showVideos && g.videos.some(v => v.show !== false) ? `<section class="pj-sec" id="pj-videos" data-spy data-label="Video demonstrations"><h2>Video demonstrations</h2><div class="pj-video-grid">${g.videos.map((v,k) => ({v,k})).filter(x => x.v.show !== false).map(({v,k}) => { const embed = videoUrl(v.url); return `<article class="pj-video-card"><div class="pj-video-frame">${embed ? ( /\.(mp4|webm|ogg)(?:[?#].*)?$/i.test(v.url) ? `<video controls preload="metadata" src="${e(embed)}"></video>` : `<iframe src="${e(embed)}" title="${e(v.title || p.title + ' demonstration')}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`) : `<a href="${e(safeUrl(v.url))}" target="_blank" rel="noopener noreferrer">Watch demonstration ↗</a>`}</div><h3>${e(v.title || 'Project demonstration')}</h3>${own ? `<button type="button" class="pj-media-remove" data-delvideo="${k}">Remove video</button>` : ''}</article>`; }).join('')}</div></section>` : (own ? `<section class="pj-sec" id="pj-videos" data-spy data-label="Video demonstrations"><h2>Video demonstrations</h2><p class="pj-empty">Add YouTube, Vimeo or hosted MP4/WebM URLs in the editor above.</p></section>` : '');
-      const demosHTML = g.showResources && g.demos.some(d => d.show !== false) ? `<section class="pj-sec" id="pj-demos" data-spy data-label="Demonstrations and resources"><h2>Demonstrations and resources</h2><div class="pj-resource-list">${g.demos.filter(d => d.show !== false).map(d => `<a href="${e(safeUrl(d.url))}" target="_blank" rel="noopener noreferrer">${e(d.label)} <span>↗</span></a>`).join('')}</div></section>` : (own ? `<section class="pj-sec" id="pj-demos" data-spy data-label="Demonstrations and resources"><h2>Demonstrations and resources</h2><p class="pj-empty">Add presentation links, walkthrough documents, repositories or other demonstration resources in the editor above.</p></section>` : '');
-      const liveDemoHTML = g.showLiveDemo && g.liveDemoUrl ? `<a class="pj-live-demo" href="${e(safeUrl(g.liveDemoUrl))}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square"></i> Open live demo</a>` : (own ? `<span class="pj-live-demo pj-live-demo-empty">Live demo URL not set</span>` : '');
+      const videosHTML = g.videos.length ? `<section class="pj-sec" id="pj-videos" data-spy data-label="Video demonstrations"><h2>Video demonstrations</h2><div class="pj-video-grid">${g.videos.map((v,k) => { const embed = videoUrl(v.url); return `<article class="pj-video-card"><div class="pj-video-frame">${embed ? ( /\.(mp4|webm|ogg)(?:[?#].*)?$/i.test(v.url) ? `<video controls preload="metadata" src="${e(embed)}"></video>` : `<iframe src="${e(embed)}" title="${e(v.title || p.title + ' demonstration')}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`) : `<a href="${e(safeUrl(v.url))}" target="_blank" rel="noopener noreferrer">Watch demonstration ↗</a>`}</div><h3>${e(v.title || 'Project demonstration')}</h3>${own ? `<button type="button" class="pj-media-remove" data-delvideo="${k}">Remove video</button>` : ''}</article>`; }).join('')}</div></section>` : (own ? `<section class="pj-sec" id="pj-videos" data-spy data-label="Video demonstrations"><h2>Video demonstrations</h2><p class="pj-empty">Add YouTube, Vimeo or hosted MP4/WebM URLs in the editor above.</p></section>` : '');
+      const demosHTML = g.demos.length ? `<section class="pj-sec" id="pj-demos" data-spy data-label="Demonstrations and resources"><h2>Demonstrations and resources</h2><div class="pj-resource-list">${g.demos.map(d => `<a href="${e(safeUrl(d.url))}" target="_blank" rel="noopener noreferrer">${e(d.label)} <span>↗</span></a>`).join('')}</div></section>` : (own ? `<section class="pj-sec" id="pj-demos" data-spy data-label="Demonstrations and resources"><h2>Demonstrations and resources</h2><p class="pj-empty">Add presentation links, walkthrough documents, repositories or other demonstration resources in the editor above.</p></section>` : '');
+      const liveDemoHTML = g.liveDemoUrl ? `<a class="pj-live-demo" href="${e(safeUrl(g.liveDemoUrl))}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square"></i> Open live demo</a>` : (own ? `<span class="pj-live-demo pj-live-demo-empty">Live demo URL not set</span>` : '');
       const tocItems = secs.slice(0, 1).map(x => ['pj-s-' + x.id, x.title])
         .concat(featHTML ? [['pj-feat', 'What it does']] : [])
         .concat(secs.slice(1).map(x => ['pj-s-' + x.id, x.title]))
@@ -1712,14 +1719,14 @@
         </div>${tools}${toc}
         <article>
           <div class="pj-hero">
-            ${g.showCover && coverSrc ? `<img class="pj-cover" src="${e(coverSrc)}" alt="${e(p.title)} cover" loading="eager" onerror="this.style.display='none'">` : ''}
+            <img class="pj-cover" src="${e(safeImageUrl(p.img))}" alt="${e(p.title)} cover">
             <div class="pj-shade"></div>
             <div class="pj-head">
-              ${g.showCategory ? `<span class="pj-tag"${ce} data-pf="tag" data-ph="Tag">${e(p.tag)}</span>` : ''}
-              ${g.showTitle ? `<h1${ce} data-pf="title" data-ph="Project title">${e(p.title)}</h1>` : ''}
-              ${g.showTagline && g.tagline ? `<p class="pj-tagline"${ce} data-pf="tagline" data-ph="One-line summary">${e(g.tagline)}</p>` : ''}
+              <span class="pj-tag"${ce} data-pf="tag" data-ph="Tag">${e(p.tag)}</span>
+              <h1${ce} data-pf="title" data-ph="Project title">${e(p.title)}</h1>
+              <p class="pj-tagline"${ce} data-pf="tagline" data-ph="One-line summary">${e(g.tagline)}</p>
               ${stack.length ? `<div class="pj-stack">${stack.map(x => `<span>${e(x)}</span>`).join('')}</div>` : ''}
-              ${g.showLinks && g.links.some(l => l.show !== false) ? `<div class="pj-links">${g.links.filter(l => l.show !== false).map(l => `<a href="${e(safeUrl(l.url))}" target="_blank" rel="noopener noreferrer">${e(l.label)} <span>&nearr;</span></a>`).join('')}</div>` : (g.showLinks && !own ? `<div class="pj-links"><button type="button" data-act="demo">Request a demo <span>&nearr;</span></button></div>` : '')}
+              ${g.links.length ? `<div class="pj-links">${g.links.map(l => `<a href="${e(safeUrl(l.url))}" target="_blank" rel="noopener noreferrer">${e(l.label)} <span>&nearr;</span></a>`).join('')}</div>` : (own ? '' : `<div class="pj-links"><button type="button" data-act="demo">Request a demo <span>&nearr;</span></button></div>`)}
               ${liveDemoHTML}
             </div>
           </div>
@@ -1731,8 +1738,8 @@
             ${shotsHTML}
             ${videosHTML}
             ${demosHTML}
-            ${g.showCTA ? `<div class="pj-cta"><p${ce} data-pf="ctaText" data-ph="Call to action">${e(g.ctaText)}</p><button type="button" data-act="contact">Start a conversation</button></div>` : ''}
-            ${g.showNextProject && n > 1 ? `<button type="button" class="pj-next" data-go="${e(next.id)}"><img src="${e(safeImageUrl(next.img))}" alt=""><span><small>Next project</small><b>${e(next.title)}</b><em>${e(nextTag)}</em></span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>` : ''}
+            <div class="pj-cta"><p${ce} data-pf="ctaText" data-ph="Call to action">${e(g.ctaText)}</p><button type="button" data-act="contact">Start a conversation</button></div>
+            ${n > 1 ? `<button type="button" class="pj-next" data-go="${e(next.id)}"><img src="${e(safeImageUrl(projectImage(next)))}" alt=""><span><small>Next project</small><b>${e(next.title)}</b><em>${e(nextTag)}</em></span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>` : ''}
           </div>
         </article>`;
       host.scrollTop = st;
@@ -1810,27 +1817,7 @@
       if (!content || !content.profile || !Array.isArray(content.projects) || !Array.isArray(content.skills)) {
         throw new Error('The portfolio JSON is missing required profile, projects, or skills data.');
       }
-      // Keep each existing URL/path as the fallback. Optional CMS uploads override it only
-      // when a replacement is selected, so old external URLs and legacy paths remain valid.
-      const profile = { ...content.profile };
-      for (const [base, upload] of [
-        ['logoUrl', 'logoUpload'], ['avatarUrl', 'avatarUpload'],
-        ['heroBgUrl', 'heroBgUpload'], ['availBgUrl', 'availBgUpload'],
-        ['ctaBgUrl', 'ctaBgUpload']
-      ]) {
-        if (typeof profile[upload] === 'string' && profile[upload].trim()) profile[base] = profile[upload];
-      }
-      const projects = content.projects.map(project => {
-        const item = { ...project };
-        if (typeof item.imgUpload === 'string' && item.imgUpload.trim()) item.img = item.imgUpload;
-        const page = { ...(item.page || {}) };
-        const additions = Array.isArray(page.galleryUploads) ? page.galleryUploads : [];
-        const original = Array.isArray(page.gallery) ? page.gallery : [];
-        page.gallery = [...new Set([...original, ...additions].filter(Boolean))];
-        item.page = page;
-        return item;
-      });
-      DEFAULT_DATA = { ...content, profile, projects, isOwner: false, customEdits: {} };
+      DEFAULT_DATA = { ...content, isOwner: false, customEdits: {} };
     }
 
     function loadSavedState() {
@@ -1847,6 +1834,8 @@
         contact: { ...DEFAULT_DATA.contact, ...(source.contact || {}) },
         skills: Array.isArray(source.skills) ? source.skills : [...DEFAULT_DATA.skills],
         projects: Array.isArray(source.projects) ? source.projects : [...DEFAULT_DATA.projects],
+        certifications: Array.isArray(source.certifications) ? source.certifications : [],
+        showCertifications: source.showCertifications !== false,
         services: Array.isArray(source.services) ? source.services : [...DEFAULT_DATA.services],
         layoutOrder: Array.isArray(source.layoutOrder) ? source.layoutOrder : [...DEFAULT_DATA.layoutOrder],
         blockVisibility: { ...DEFAULT_DATA.blockVisibility, ...(source.blockVisibility || {}) },
@@ -1957,6 +1946,7 @@
 
       renderSkillGauges();
       renderProjects();
+      renderCertifications();
       renderServices();
       applyLayoutOrderAndVisibility();
       applyCustomStudioEdits();
@@ -2089,7 +2079,7 @@
       grid.innerHTML = state.projects.map((p, index) => `
         <button type="button" data-project-index="${index}" class="custom-card-style text-left overflow-hidden hover:border-indigo-400 transition transform hover:-translate-y-1 cursor-pointer group flex flex-col justify-between">
           <div class="h-36 overflow-hidden relative bg-slate-100 border-b border-slate-100">
-            <img src="${escapeHTML(safeImageUrl(p.img))}" alt="${escapeHTML(p.title)} project preview" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-95 group-hover:opacity-100">
+            <img src="${escapeHTML(safeImageUrl(projectImage(p)))}" alt="${escapeHTML(p.title)} project preview" loading="eager" decoding="async" onerror="this.onerror=null;this.remove();this.parentElement.classList.add('image-unavailable')" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-95 group-hover:opacity-100">
           </div>
           <div class="p-4 w-full">
             <h4 class="font-bold text-slate-900 text-sm">${escapeHTML(p.title)}</h4>
@@ -2107,6 +2097,36 @@
           if (project) openProjectPage(project.id);
         });
       });
+    }
+
+    // CERTIFICATIONS: certificate thumbnails, credential details and individual visibility.
+    function renderCertifications() {
+      const section = document.getElementById('certificationsBlock');
+      const grid = document.getElementById('certificationsGrid');
+      if (!section || !grid) return;
+      const all = Array.isArray(state.certifications) ? state.certifications : [];
+      const visible = all.filter(c => c && c.show !== false);
+      section.hidden = state.showCertifications === false || visible.length === 0;
+      if (section.hidden) return;
+      const count = document.getElementById('certificationCount');
+      if (count) count.textContent = `${visible.length} ${visible.length === 1 ? 'credential' : 'credentials'}`;
+      grid.innerHTML = visible.map((c, index) => {
+        const src = safeImageUrl(certificateImage(c));
+        const credential = safeUrl(c.credentialUrl || c.url || '');
+        const meta = [c.issuer, c.issueDate || c.date, c.credentialId ? `ID: ${c.credentialId}` : ''].filter(Boolean);
+        return `<article class="cert-card">
+          <div class="cert-thumb">
+            ${src ? `<img src="${escapeHTML(src)}" alt="${escapeHTML(c.title || c.name || 'Certificate')} thumbnail" loading="lazy" decoding="async" onerror="this.onerror=null;this.remove()">` : ''}
+            <div class="cert-thumb-fallback"><i class="fa-solid fa-award" aria-hidden="true"></i><span>Certificate</span></div>
+          </div>
+          <div class="cert-info">
+            <h4>${escapeHTML(c.title || c.name || 'Certificate')}</h4>
+            ${c.description ? `<p>${escapeHTML(c.description)}</p>` : ''}
+            ${meta.length ? `<div class="cert-meta">${meta.map(m => `<span>${escapeHTML(m)}</span>`).join('')}</div>` : ''}
+            ${credential !== '#' ? `<a class="cert-link" href="${escapeHTML(credential)}" target="_blank" rel="noopener noreferrer">View credential <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>` : ''}
+          </div>
+        </article>`;
+      }).join('');
     }
 
     // SERVICES GRID
