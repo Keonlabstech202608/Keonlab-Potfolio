@@ -175,6 +175,7 @@
     #sectionBlockAboutSkills, #sectionBlockServicesEdu { column-gap:3rem; }
     #statsSection { background:rgba(255,255,255,.74); backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,.8); border-radius:1.25rem; box-shadow:0 18px 40px -18px rgba(30,41,99,.35); }
     #projectsGrid > button { background:none; border:0; box-shadow:none; }
+    #projectsGrid .image-unavailable::after { content:none !important; display:none !important; }
     #projectsGrid > button > div:first-child { border-radius:.9rem; border:0; }
     #projectsGrid .p-4 { padding:.9rem 0 0; }
     #projectsGrid .rounded-md { background:none; border:0; padding:0; color:#4f46e5; }
@@ -193,15 +194,18 @@
 
     /* ===== Certifications ===== */
     #certificationsBlock { margin-top:2.5rem; padding-top:1.75rem; border-top:1px solid rgba(15,23,60,.14); }
-    .cert-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr)); gap:1.15rem; margin-top:1.2rem; }
-    .cert-card { display:flex; flex-direction:column; overflow:hidden; border:1px solid #e2e8f0; border-radius:1rem; background:rgba(255,255,255,.88); box-shadow:0 12px 30px -24px rgba(15,23,42,.4); transition:transform .2s,border-color .2s,box-shadow .2s; }
-    .cert-card:hover { transform:translateY(-3px); border-color:#a5b4fc; box-shadow:0 18px 34px -24px rgba(79,70,229,.45); }
-    .cert-thumb { position:relative; display:block; width:100%; aspect-ratio:16/10; overflow:hidden; background:linear-gradient(135deg,#e0e7ff,#f1f5f9 55%,#dbeafe); }
+    /* Certifications use the same four/two/one-column rhythm as project cards. */
+    .cert-grid { display:grid; grid-template-columns:repeat(1,minmax(0,1fr)); gap:1.25rem; margin-top:1rem; }
+    @media (min-width:640px) { .cert-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+    @media (min-width:1024px) { .cert-grid { grid-template-columns:repeat(4,minmax(0,1fr)); } }
+    .cert-card { display:flex; min-width:0; flex-direction:column; overflow:hidden; border:0; border-radius:.9rem; background:transparent; box-shadow:none; transition:transform .2s; }
+    .cert-card:hover { transform:translateY(-2px); }
+    .cert-thumb { position:relative; display:block; width:100%; height:8rem; aspect-ratio:auto; overflow:hidden; border-radius:.9rem; background:linear-gradient(135deg,#e0e7ff,#f1f5f9 55%,#dbeafe); }
     .cert-thumb img { width:100%; height:100%; object-fit:cover; display:block; }
     .cert-thumb:has(img) .cert-thumb-fallback { display:none; }
     .cert-thumb-fallback { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:.45rem; color:#4338ca; font-weight:800; letter-spacing:.08em; text-transform:uppercase; font-size:.68rem; }
     .cert-thumb-fallback i { font-size:2.2rem; }
-    .cert-info { padding:1rem 1.05rem 1.1rem; }
+    .cert-info { padding:.65rem 0 0; }
     .cert-info h4 { color:#0f172a; font-size:.94rem; line-height:1.35; font-weight:800; }
     .cert-info p { color:#64748b; font-size:.76rem; margin-top:.3rem; line-height:1.5; }
     .cert-meta { display:flex; flex-wrap:wrap; gap:.4rem .75rem; margin-top:.7rem; color:#64748b; font-size:.68rem; }
@@ -290,6 +294,7 @@
     .pj-hero { position:relative; }
     .pj-story .pj-hero { height:min(27rem,64vh); overflow:hidden; color:#fff; }
     .pj-story .pj-cover { position:absolute; left:0; top:-10%; width:100%; height:120%; object-fit:cover; }
+    .pj-hero.cover-unavailable::after { content:none !important; display:none !important; }
     .pj-story .pj-shade { position:absolute; inset:0; background:linear-gradient(180deg,rgba(8,12,36,.25),rgba(8,12,36,.9)); }
     .pj-story .pj-head { position:absolute; left:0; right:0; bottom:0; max-width:60rem; margin:0 auto; padding:0 1.5rem 2rem; }
     .pj-head > * { animation:pjUp .55s both; }
@@ -319,6 +324,21 @@
     .pj-gal img { width:100%; height:11rem; object-fit:cover; transition:transform .4s; }
     .pj-gal figure:hover img { transform:scale(1.06); }
     .pj-gal figure button { position:absolute; top:.4rem; right:.4rem; width:1.6rem; height:1.6rem; border-radius:50%; background:#fff; color:#dc2626; font-weight:700; }
+    .pj-story-gallery { margin:1.5rem 0 2rem; max-width:100%; }
+    .pj-story-gallery-window { overflow:hidden; border-radius:1rem; background:#111827; }
+    .pj-story-gallery-track { display:flex; transition:transform .45s ease; will-change:transform; }
+    .pj-story-slide { position:relative; flex:0 0 100%; min-width:0; margin:0; aspect-ratio:16/9; }
+    .pj-story-image { display:block; width:100%; height:100%; padding:0; cursor:zoom-in; }
+    .pj-story-image img { display:block; width:100%; height:100%; object-fit:contain; background:#111827; }
+    .pj-story-controls { display:flex; align-items:center; justify-content:center; gap:1.2rem; margin:.65rem auto 0; color:#475569; font-size:.78rem; font-weight:700; }
+    .pj-story-controls button { width:2rem; height:2rem; border:1px solid #cbd5e1; border-radius:50%; background:#fff; color:#334155; }
+    .pj-story-controls button:hover { background:var(--pj); border-color:var(--pj); color:#fff; }
+    .pj-story-dots { display:flex; justify-content:center; gap:.4rem; margin-top:.45rem; }
+    .pj-story-dots button { width:.42rem; height:.42rem; padding:0; border-radius:50%; background:#cbd5e1; }
+    .pj-story-dots button.active { width:1.2rem; border-radius:999px; background:var(--pj); }
+    .pj-story-remove { position:absolute; right:.65rem; top:.65rem; padding:.35rem .65rem; border-radius:999px; background:#fff; color:#b91c1c; font-size:.7rem; font-weight:700; }
+    .pj-story-gallery-empty { margin:1rem 0 2rem; }
+    @media (prefers-reduced-motion:reduce) { .pj-story-gallery-track { transition:none; } }
     .pj-video-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,20rem),1fr)); gap:1rem; margin-top:1rem; }
     .pj-video-card { min-width:0; border:1px solid #e2e8f0; border-radius:1rem; overflow:hidden; background:#fff; }
     .pj-video-frame { position:relative; aspect-ratio:16/9; background:#0f172a; }
@@ -428,9 +448,9 @@
     #projectsGrid .h-36 { height:8rem !important; }
     #projectsGrid .p-4 { padding-top:.65rem !important; }
     #certificationsBlock { margin-top:1.5rem !important; padding-top:1.1rem !important; }
-    .cert-grid { grid-template-columns:repeat(auto-fit,minmax(min(100%,14rem),1fr)) !important; gap:.8rem !important; margin-top:.8rem !important; }
-    .cert-thumb { aspect-ratio:16/9 !important; }
-    .cert-info { padding:.75rem .85rem .85rem !important; }
+    .cert-grid { gap:1.25rem !important; margin-top:.8rem !important; }
+    .cert-thumb { height:8rem !important; aspect-ratio:auto !important; }
+    .cert-info { padding:.65rem 0 0 !important; }
     #tileAvailability { padding:1.1rem 0 !important; }
     #sectionBlockCTA { padding:1.4rem 0 .75rem !important; }
     #ctaHeading { font-size:clamp(1.65rem,3vw,2.35rem) !important; }
@@ -1434,8 +1454,10 @@
         await loadPortfolioContent();
       } catch (error) {
         console.error('Portfolio content could not be loaded:', error);
+        // Never cover the portfolio with a persistent "content unavailable" tile.
+        // The loader already tries the published JSON and baked state fallback.
         const notice = document.getElementById('contentLoadError');
-        if (notice) notice.hidden = false;
+        if (notice) notice.hidden = true;
         return;
       }
       loadSavedState();
@@ -1730,11 +1752,12 @@
           <h2>What it does</h2>
           ${g.features.length ? `<ul class="pj-feats">${g.features.map(f => `<li class="pj-feat"><i class="fa-solid fa-check" aria-hidden="true"></i><div><b>${e(f.title)}</b>${f.text ? `<span>${e(f.text)}</span>` : ''}</div></li>`).join('')}</ul>` : '<p class="pj-empty">Add key features in the bar above, one per line as Title | description.</p>'}
         </section>` : '';
-      const shotsHTML = g.gallery.length ? `
-        <section class="pj-sec" id="pj-shots" data-spy data-label="Project images">
-          <h2>Project images</h2>
-          <div class="pj-gal">${g.gallery.map((src, k) => `<figure><button type="button" class="pj-zoom" data-lb="${k}" aria-label="View project image ${k + 1} of ${g.gallery.length} full size"><img src="${e(safeImageUrl(src))}" alt="${e(p.title)} project image ${k + 1}" loading="lazy"></button>${own ? `<button type="button" data-delgal="${k}" aria-label="Remove image">&times;</button>` : ''}</figure>`).join('')}</div>
-        </section>` : (own ? `<section class="pj-sec" id="pj-shots" data-spy data-label="Project images"><h2>Project images</h2><p class="pj-empty">Use “Add project images” above to upload screenshots, interface captures or project photos.</p></section>` : '');
+      // Gallery images are presented as an inline story slideshow, not a separate page section.
+      const storyGalleryHTML = g.gallery.length ? `
+        <div class="pj-story-gallery" data-story-gallery data-index="0" aria-label="Project story images">
+          <div class="pj-story-gallery-window"><div class="pj-story-gallery-track">${g.gallery.map((src, k) => `<figure class="pj-story-slide"><button type="button" class="pj-story-image" data-lb="${k}" aria-label="Open story image ${k + 1} full size"><img src="${e(safeImageUrl(src))}" alt="${e(p.title)} — story image ${k + 1}" loading="lazy"></button>${own ? `<button type="button" class="pj-story-remove" data-delgal="${k}" aria-label="Remove image">Remove</button>` : ''}</figure>`).join('')}</div></div>
+          ${g.gallery.length > 1 ? `<div class="pj-story-controls"><button type="button" data-story-prev aria-label="Previous story image">&larr;</button><span data-story-count>1 / ${g.gallery.length}</span><button type="button" data-story-next aria-label="Next story image">&rarr;</button></div><div class="pj-story-dots">${g.gallery.map((_,k)=>`<button type="button" data-story-dot="${k}" aria-label="Show story image ${k+1}" class="${k===0?'active':''}"></button>`).join('')}</div>` : ''}
+        </div>` : (own ? `<p class="pj-empty pj-story-gallery-empty">Add project images above. They will appear as slides inside the project story.</p>` : '');
       const videoUrl = u => { const raw = String(u || '').trim(); const yt = raw.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/i); if (yt) return 'https://www.youtube-nocookie.com/embed/' + yt[1]; const vm = raw.match(/vimeo\.com\/(?:video\/)?(\d+)/i); if (vm) return 'https://player.vimeo.com/video/' + vm[1]; return /^(https?:\/\/).+\.(mp4|webm|ogg)(?:[?#].*)?$/i.test(raw) ? safeUrl(raw) : ''; };
       const videosHTML = g.videos.length ? `<section class="pj-sec" id="pj-videos" data-spy data-label="Video demonstrations"><h2>Video demonstrations</h2><div class="pj-video-grid">${g.videos.map((v,k) => { const embed = videoUrl(v.url); return `<article class="pj-video-card"><div class="pj-video-frame">${embed ? ( /\.(mp4|webm|ogg)(?:[?#].*)?$/i.test(v.url) ? `<video controls preload="metadata" src="${e(embed)}"></video>` : `<iframe src="${e(embed)}" title="${e(v.title || p.title + ' demonstration')}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`) : `<a href="${e(safeUrl(v.url))}" target="_blank" rel="noopener noreferrer">Watch demonstration ↗</a>`}</div><h3>${e(v.title || 'Project demonstration')}</h3>${own ? `<button type="button" class="pj-media-remove" data-delvideo="${k}">Remove video</button>` : ''}</article>`; }).join('')}</div></section>` : (own ? `<section class="pj-sec" id="pj-videos" data-spy data-label="Video demonstrations"><h2>Video demonstrations</h2><p class="pj-empty">Add YouTube, Vimeo or hosted MP4/WebM URLs in the editor above.</p></section>` : '');
       const demosHTML = g.demos.length ? `<section class="pj-sec" id="pj-demos" data-spy data-label="Demonstrations and resources"><h2>Demonstrations and resources</h2><div class="pj-resource-list">${g.demos.map(d => `<a href="${e(safeUrl(d.url))}" target="_blank" rel="noopener noreferrer">${e(d.label)} <span>↗</span></a>`).join('')}</div></section>` : (own ? `<section class="pj-sec" id="pj-demos" data-spy data-label="Demonstrations and resources"><h2>Demonstrations and resources</h2><p class="pj-empty">Add presentation links, walkthrough documents, repositories or other demonstration resources in the editor above.</p></section>` : '');
@@ -1742,7 +1765,6 @@
       const tocItems = secs.slice(0, 1).map(x => ['pj-s-' + x.id, x.title])
         .concat(featHTML ? [['pj-feat', 'What it does']] : [])
         .concat(secs.slice(1).map(x => ['pj-s-' + x.id, x.title]))
-        .concat(shotsHTML ? [['pj-shots', 'Project images']] : [])
         .concat(videosHTML ? [['pj-videos', 'Video demonstrations']] : [])
         .concat(demosHTML ? [['pj-demos', 'Demonstrations']] : []);
       const toc = tocItems.length > 1 ? `<nav class="pj-toc" aria-label="On this page">${tocItems.map(([id, label]) => `<button type="button" data-toc="${e(id)}">${e(label)}</button>`).join('')}</nav>` : '';
@@ -1771,9 +1793,9 @@
           <div class="pj-body">
             ${meta.length ? `<dl class="pj-summary">${meta.map(([k, v, f]) => `<div><dt>${k}</dt><dd${ce} data-pf="${f}" data-ph="${k === 'Team' ? 'Solo or team size' : k}">${e(v)}</dd></div>`).join('')}</dl>` : ''}
             ${secs.slice(0, 1).map(secHTML).join('')}
+            ${storyGalleryHTML}
             ${featHTML}
             ${secs.slice(1).map(secHTML).join('')}
-            ${shotsHTML}
             ${videosHTML}
             ${demosHTML}
             <div class="pj-cta"><p${ce} data-pf="ctaText" data-ph="Call to action">${e(g.ctaText)}</p><button type="button" data-act="contact">Start a conversation</button></div>
@@ -1816,6 +1838,19 @@
         const b = ev.target.closest('button'); if (!b) return;
         if (b.dataset.go) { location.hash = 'project-' + b.dataset.go; return; }
         if (b.dataset.lb !== undefined) { openLightbox(+b.dataset.lb, b); return; }
+        const storyGallery = b.closest('[data-story-gallery]');
+        if (storyGallery && (b.hasAttribute('data-story-prev') || b.hasAttribute('data-story-next') || b.dataset.storyDot !== undefined)) {
+          const total = storyGallery.querySelectorAll('.pj-story-slide').length;
+          let index = Number(storyGallery.dataset.index || 0);
+          if (b.hasAttribute('data-story-prev')) index = (index - 1 + total) % total;
+          else if (b.hasAttribute('data-story-next')) index = (index + 1) % total;
+          else index = Number(b.dataset.storyDot);
+          storyGallery.dataset.index = String(index);
+          storyGallery.querySelector('.pj-story-gallery-track').style.transform = `translateX(-${index * 100}%)`;
+          const count = storyGallery.querySelector('[data-story-count]'); if (count) count.textContent = `${index + 1} / ${total}`;
+          storyGallery.querySelectorAll('[data-story-dot]').forEach((dot, n) => dot.classList.toggle('active', n === index));
+          return;
+        }
         if (b.dataset.toc) { const t = host.querySelector('#' + b.dataset.toc); if (t) t.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' }); return; }
         const p = cur(), a = b.dataset.act;
         if (b.dataset.delgal !== undefined && p) { pageOf(p).gallery.splice(+b.dataset.delgal, 1); saveState(); renderProjectPage(p); return; }
@@ -1848,18 +1883,45 @@
     }
 
     async function loadPortfolioContent() {
-      const url = new URL('./content/portfolio.json', document.baseURI);
-      const response = await fetch(url.href, { cache: 'no-store' });
-      if (!response.ok) throw new Error('HTTP ' + response.status);
-      const content = await response.json();
-      if (content && content.profile) {
+      let content = null;
+      let lastError = null;
+      const candidates = [
+        new URL('./content/portfolio.json', document.baseURI).href,
+        new URL('content/portfolio.json', new URL('./', window.location.href)).href
+      ].filter((url, index, all) => all.indexOf(url) === index);
+
+      for (const url of candidates) {
+        try {
+          const response = await fetch(url, { cache: 'no-store', credentials: 'same-origin', headers: { Accept: 'application/json' } });
+          if (!response.ok) throw new Error('HTTP ' + response.status + ' for ' + url);
+          const parsed = await response.json();
+          if (parsed && parsed.profile && Array.isArray(parsed.projects) && Array.isArray(parsed.skills)) {
+            content = parsed;
+            break;
+          }
+          throw new Error('Portfolio JSON has an unexpected structure at ' + url);
+        } catch (error) {
+          lastError = error;
+          console.warn('Could not load portfolio content from:', url, error);
+        }
+      }
+
+      // If the published JSON request is temporarily unavailable, use a valid
+      // baked copy when one exists instead of displaying a blocking error tile.
+      if (!content) {
+        const baked = readBaked();
+        if (baked && baked.profile && Array.isArray(baked.projects) && Array.isArray(baked.skills)) content = baked;
+      }
+      if (!content) throw (lastError || new Error('Portfolio content could not be loaded.'));
+
+      if (content.profile) {
         const profile = content.profile;
         for (const [fileKey, urlKey] of [['logoFile','logoUrl'],['avatarFile','avatarUrl'],['heroBgFile','heroBgUrl'],['availBgFile','availBgUrl'],['ctaBgFile','ctaBgUrl']]) {
           const uploaded = imageString(profile[fileKey]);
           if (uploaded) profile[urlKey] = uploaded;
         }
       }
-      if (content && Array.isArray(content.projects)) content.projects.forEach(project => {
+      if (Array.isArray(content.projects)) content.projects.forEach(project => {
         const uploaded = imageString(project.imgFile);
         if (uploaded) project.img = uploaded;
         if (project.page && Array.isArray(project.page.galleryFiles)) {
@@ -1867,13 +1929,10 @@
           project.page.gallery = [...(Array.isArray(project.page.gallery) ? project.page.gallery : []), ...files];
         }
       });
-      if (content && Array.isArray(content.certifications)) content.certifications.forEach(cert => {
+      if (Array.isArray(content.certifications)) content.certifications.forEach(cert => {
         const uploaded = imageString(cert.thumbnailFile);
         if (uploaded) cert.thumbnail = uploaded;
       });
-      if (!content || !content.profile || !Array.isArray(content.projects) || !Array.isArray(content.skills)) {
-        throw new Error('The portfolio JSON is missing required profile, projects, or skills data.');
-      }
       DEFAULT_DATA = { ...content, isOwner: false, customEdits: {} };
     }
 
@@ -2952,11 +3011,15 @@
       r.readAsText(f);
     }
 
-    // ===== IMAGES: a calm placeholder when a picture fails to load =====
-    const IMG_FALLBACK = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1e1b4b"/><stop offset="1" stop-color="#312e81"/></linearGradient></defs><rect width="600" height="400" fill="url(#g)"/><g fill="none" stroke="#818cf8" stroke-opacity=".55" stroke-width="3"><circle cx="300" cy="200" r="48"/><path d="M268 216l24-28 20 22 14-14 20 20"/></g></svg>');
+    // ===== IMAGES: failed images are removed, never replaced by a fake error tile =====
     document.addEventListener('error', ev => {
-      const t = ev.target, s = t && t.tagName === 'IMG' && t.getAttribute('src');
-      if (s && !t.dataset.fb && !s.startsWith('data:')) { t.dataset.fb = '1'; t.src = IMG_FALLBACK; }
+      const image = ev.target;
+      if (!image || image.tagName !== 'IMG') return;
+      // Inline handlers may already provide a section-specific fallback. This
+      // listener only cleans up images that otherwise remain visibly broken.
+      if (image.dataset.failedCleaned) return;
+      image.dataset.failedCleaned = '1';
+      if (image.isConnected) image.remove();
     }, true);
 
     // ===== MODALS: focus handling and Escape =====
