@@ -166,16 +166,35 @@ content:
             label: Project details
             type: object
             fields:
+              - { name: showProjectPage, label: Show the full project details page, type: boolean }
+              - { name: showCover, label: Show project cover image, type: boolean }
+              - { name: showTitle, label: Show project title, type: boolean }
+              - { name: showCategory, label: Show project category, type: boolean }
+              - { name: showMetadata, label: Show project information (role, year, status and team), type: boolean }
+              - { name: showLinks, label: Show project links, type: boolean }
+              - { name: showFeatures, label: Show key features section, type: boolean }
+              - { name: showGallery, label: Show project images gallery, type: boolean }
+              - { name: showVideos, label: Show video demonstrations, type: boolean }
+              - { name: showResources, label: Show resources section, type: boolean }
+              - { name: showNextProject, label: Show next project suggestion, type: boolean }
               - { name: tagline, label: One-line summary, type: text }
+              - { name: showTagline, label: Show one-line summary, type: boolean }
               - { name: role, label: Your role, type: string }
+              - { name: showRole, label: Show role, type: boolean }
               - { name: year, label: Year, type: string }
+              - { name: showYear, label: Show year, type: boolean }
               - { name: status, label: Status, type: string }
+              - { name: showStatus, label: Show status, type: boolean }
               - { name: team, label: Team size, type: string }
+              - { name: showTeam, label: Show team size, type: boolean }
               - { name: stack, label: Technology stack (comma-separated), type: string }
+              - { name: showStack, label: Show technology stack, type: boolean }
               - { name: layout, label: Project page layout (story or split), type: string }
               - { name: accent, label: Accent color, type: string }
               - { name: ctaText, label: Project call to action, type: text }
+              - { name: showCTA, label: Show project call to action, type: boolean }
               - { name: liveDemoUrl, label: Live demo URL (HTTPS), type: string }
+              - { name: showLiveDemo, label: Show live demo link, type: boolean }
               - name: features
                 label: Key features
                 type: object
@@ -197,6 +216,7 @@ content:
                 fields:
                   - { name: label, label: Link label, type: string }
                   - { name: url, label: URL (HTTPS), type: string }
+                  - { name: show, label: Show this link, type: boolean }
               - name: gallery
                 label: Current gallery image URLs or paths (keep these)
                 type: string
@@ -222,6 +242,7 @@ content:
                 fields:
                   - { name: title, label: Video title, type: string }
                   - { name: url, label: YouTube, Vimeo, or HTTPS video URL, type: string }
+                  - { name: show, label: Show this video, type: boolean }
               - name: demos
                 label: Resources
                 type: object
@@ -232,6 +253,7 @@ content:
                 fields:
                   - { name: label, label: Resource label, type: string }
                   - { name: url, label: Resource URL (HTTPS), type: string }
+                  - { name: show, label: Show this resource, type: boolean }
               - name: sections
                 label: Project story sections
                 type: object
