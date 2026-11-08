@@ -43,6 +43,13 @@ media:
     categories: [image]
     extensions: [png, jpg, jpeg, webp, avif]
     rename: safe
+  - name: certificates
+    label: Certificate thumbnails
+    input: assets/media/certificates
+    output: assets/media/certificates
+    categories: [image]
+    extensions: [png, jpg, jpeg, webp, avif, pdf]
+    rename: safe
   - name: project_galleries
     label: Project gallery screenshots
     input: assets/media/project-galleries
@@ -118,6 +125,33 @@ content:
             label: Technology badges
             type: string
             list: true
+      - name: showCertifications
+        label: Show certifications section on public portfolio
+        type: boolean
+      - name: certifications
+        label: Certifications and certificates
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{title}"
+        fields:
+          - { name: title, label: Certificate or course title, type: string }
+          - { name: issuer, label: Issuing organisation, type: string }
+          - { name: issueDate, label: Date earned, type: string }
+          - { name: credentialId, label: Credential ID (optional), type: string }
+          - { name: credentialUrl, label: Verification or credential URL (HTTPS), type: string }
+          - { name: description, label: Short description (optional), type: text }
+          - name: thumbnail
+            label: Existing certificate thumbnail URL or path (keep this)
+            type: string
+            description: Leave unchanged to keep the current thumbnail.
+          - name: thumbnailUpload
+            label: Upload or replace certificate thumbnail
+            type: image
+            description: Upload a clear certificate image or thumbnail. This replaces the current thumbnail on the public portfolio.
+            options: { media: certificates }
+          - { name: show, label: Show this certificate publicly, type: boolean }
       - name: stats
         label: Portfolio statistics
         type: object
