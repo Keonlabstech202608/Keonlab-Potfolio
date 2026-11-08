@@ -80,7 +80,7 @@ content:
             label: Current brand logo (keep this image)
             type: string
             description: Existing image URL or path. Leave unchanged to keep the current logo.
-          - name: logoUpload
+          - name: logoFile
             label: Replace brand logo (optional)
             type: image
             description: Leave empty to keep the current logo. Upload here only when you want to replace it.
@@ -89,7 +89,7 @@ content:
             label: Current profile photo (keep this image)
             type: string
             description: Existing image URL or path. Leave unchanged to keep the current photo.
-          - name: avatarUpload
+          - name: avatarFile
             label: Replace profile photo (optional)
             type: image
             description: Leave empty to keep the current photo. Upload here only when you want to replace it.
@@ -98,7 +98,7 @@ content:
             label: Current hero background (keep this image)
             type: string
             description: Existing image URL or path. Leave unchanged to keep the current background.
-          - name: heroBgUpload
+          - name: heroBgFile
             label: Replace hero background (optional)
             type: image
             description: Leave empty to keep the current background. Upload here only when you want to replace it.
@@ -107,7 +107,7 @@ content:
             label: Current availability background (keep this image)
             type: string
             description: Existing image URL or path. Leave unchanged to keep the current background.
-          - name: availBgUpload
+          - name: availBgFile
             label: Replace availability background (optional)
             type: image
             description: Leave empty to keep the current background. Upload here only when you want to replace it.
@@ -116,7 +116,7 @@ content:
             label: Current contact background (keep this image)
             type: string
             description: Existing image URL or path. Leave unchanged to keep the current background.
-          - name: ctaBgUpload
+          - name: ctaBgFile
             label: Replace contact background (optional)
             type: image
             description: Leave empty to keep the current background. Upload here only when you want to replace it.
@@ -146,7 +146,7 @@ content:
             label: Existing certificate thumbnail URL or path (keep this)
             type: string
             description: Leave unchanged to keep the current thumbnail.
-          - name: thumbnailUpload
+          - name: thumbnailFile
             label: Upload or replace certificate thumbnail
             type: image
             description: Upload a clear certificate image or thumbnail. This replaces the current thumbnail on the public portfolio.
@@ -191,7 +191,7 @@ content:
             label: Current project cover (keep this image)
             type: string
             description: Existing image URL or path. Leave unchanged to keep the current project cover.
-          - name: imgUpload
+          - name: imgFile
             label: Replace project cover (optional)
             type: image
             description: Leave empty to keep the current cover. Upload here only when you want to replace it.
@@ -256,7 +256,7 @@ content:
                 type: string
                 list: true
                 description: Existing gallery image URLs or paths. Leave these unchanged to keep the current gallery.
-              - name: galleryUploads
+              - name: galleryFiles
                 label: Add or replace gallery images (optional)
                 type: image
                 description: Upload additional screenshots here. Existing gallery images are kept. Clear this field to remove only the uploaded additions.
