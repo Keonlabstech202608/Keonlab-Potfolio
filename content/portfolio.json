@@ -61,6 +61,7 @@
       "desc": "Farmer-to-business marketplace application.",
       "tag": "Web App",
       "img": "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&q=80&w=600",
+      "imgUpload": "assets/media/project-covers/screenshot-2026-10-20-110852.png",
       "page": {
         "showProjectPage": true,
         "showCover": true,
@@ -101,15 +102,22 @@
         "galleryUploads": [
           "assets/media/project-galleries/screenshot-2026-10-20-110852.png"
         ],
+        "videos": [
+          {
+            "title": "Farm Connect demo video ",
+            "url": "https://www.youtube.com/watch?v=e2rC-zisilA",
+            "show": true
+          }
+        ],
         "demos": [
           {
-            "label": "test resource ",
-            "url": "we are testing this ppart ",
+            "label": "Flutter ",
+            "url": "https://flutter.dev/",
             "show": true
           },
           {
-            "label": "testing 2",
-            "url": "we are testing this part ",
+            "label": "Android Studio",
+            "url": "https://developer.android.com/studio",
             "show": true
           }
         ],
