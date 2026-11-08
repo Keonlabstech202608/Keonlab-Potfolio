@@ -88,9 +88,9 @@
         "layout": "story",
         "accent": "#4f46e5",
         "ctaText": "Want something like this built?",
-        "showCTA": false,
+        "showCTA": true,
         "liveDemoUrl": "https://www.google.com/?utm_source=chatgpt.com",
-        "showLiveDemo": false,
+        "showLiveDemo": true,
         "features": [
           {
             "title": "Farmer Registration",
@@ -112,17 +112,17 @@
           {
             "id": "s2",
             "title": "The problem",
-            "show": false
+            "show": true
           },
           {
             "id": "s3",
             "title": "How I built it",
-            "show": false
+            "show": true
           },
           {
             "id": "s4",
             "title": "What I learned",
-            "show": false
+            "show": true
           }
         ]
       }
