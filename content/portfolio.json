@@ -8,9 +8,7 @@
     "availability": "available",
     "availabilityText": "Available for Work",
     "availabilityDesc": "Open to new projects and collaborations.",
-    "logoUpload": "assets/media/logos/chatgpt-image-sep-4-2026-065203-pm.png",
     "avatarUrl": "assets/media/profile/ke-avatar.png",
-    "avatarUpload": "assets/media/profile/img-20260505-wa0016.jpg",
     "heroBgUrl": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=1400",
     "availBgUrl": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80&w=800",
     "ctaBgUrl": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1200",
@@ -27,7 +25,6 @@
       "title": "Safegurding essentials ",
       "issuer": "Kaya ",
       "issueDate": "21st June, 2024",
-      "thumbnailUpload": "assets/media/certificates/screenshot-2026-04-05-105111.png",
       "show": true
     }
   ],
@@ -71,7 +68,6 @@
       "desc": "Farmer-to-business marketplace application.",
       "tag": "Web App",
       "img": "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&q=80&w=600",
-      "imgUpload": "assets/media/project-covers/screenshot-2026-10-20-110852.png",
       "page": {
         "showProjectPage": true,
         "showCover": true,
@@ -109,8 +105,9 @@
             "show": true
           }
         ],
-        "galleryUploads": [
-          "assets/media/project-galleries/screenshot-2026-10-20-110852.png"
+        "galleryFiles": [
+          "assets/media/project-galleries/screenshot-2026-10-20-110852-1.png",
+          "assets/media/project-galleries/screenshot-2026-10-21-012143-1.png"
         ],
         "videos": [
           {
