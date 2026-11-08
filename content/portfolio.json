@@ -102,6 +102,18 @@
           "assets/media/project-galleries/screenshot-2026-10-21-012143-1.png",
           "assets/media/project-galleries/screenshot-2026-10-20-110852-1.png"
         ],
+        "demos": [
+          {
+            "label": "test resource ",
+            "url": "we are testing this ppart ",
+            "show": true
+          },
+          {
+            "label": "testing 2",
+            "url": "we are testing this part ",
+            "show": true
+          }
+        ],
         "sections": [
           {
             "id": "s1",
@@ -112,16 +124,24 @@
           {
             "id": "s2",
             "title": "The problem",
+            "body": "this part is being testied for clear and more adaptive gui",
             "show": true
           },
           {
             "id": "s3",
             "title": "How I built it",
+            "body": "Enter how the developer built the system, the archtecture, the tools used , and how each tool and concept  combine the project into something ",
             "show": true
           },
           {
             "id": "s4",
             "title": "What I learned",
+            "body": "what the user learnt in the process of developing this ptoject",
+            "show": true
+          },
+          {
+            "title": "Acknoledgment ",
+            "body": "Acknoledge the people who made it posible for you to develop this , sponsors, supporter and knowledger and dea contributors ",
             "show": true
           }
         ]
