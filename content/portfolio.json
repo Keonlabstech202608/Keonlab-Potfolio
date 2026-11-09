@@ -93,7 +93,7 @@
         "showTeam": true,
         "stack": "Mobile, networking,",
         "showStack": true,
-        "layout": "story",
+        "layout": "split",
         "accent": "#4f46e5",
         "ctaText": "Want something like this built?",
         "showCTA": true,
